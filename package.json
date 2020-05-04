@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "debug": "ndb index.js"
   },
   "author": "andrew riefenstahl",
   "license": "ISC",
@@ -19,7 +20,7 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.1.7-alpha.3",
     "express-session": "^1.17.1",
-    "mongoose": "^5.9.10",
+    "mongoose": "^5.9.11",
     "mongoose-unique-validator": "^2.0.3",
     "prettier": "^2.0.5"
   }

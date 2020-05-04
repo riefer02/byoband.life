@@ -20,6 +20,8 @@ const loginUserController = require('./controllers/loginUser');
 const authMiddleware = require('./middleware/authMiddleware');
 const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware');
 const logoutController = require('./controllers/logoutController');
+const blogRouter = require('./routes/blogRoutes.js');
+const userRouter = require('./routes/userRoutes.js');
 
 mongoose.connect(
 	'mongodb+srv://riefer02:legacy21@byob-blog-1-c5qvl.mongodb.net/blog?retryWrites=true&w=majority',
@@ -27,6 +29,7 @@ mongoose.connect(
 );
 
 const app = new express();
+
 app.set('view engine', 'ejs');
 let port = process.env.Port;
 if (port == null || port == '') port = 6969;
@@ -49,6 +52,10 @@ app.use('*', (req, res, next) => {
 });
 app.use(flash());
 
+//MOUNTING ROUTES
+app.use('/', blogRouter);
+app.use('/', userRouter);
+
 // ROUTES
 app.get('/', homeController);
 app.get('/post/:id', getPostController);
@@ -68,7 +75,7 @@ app.post(
 	loginUserController
 );
 app.get('/auth/logout', logoutController);
-app.use((req, res) => res.render('notfound'));
+// app.use((req, res) => res.render('notfound'));
 
 // SERVER
 app.listen(port, () => {

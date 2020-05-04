@@ -1,9 +1,10 @@
 const User = require('../models/User.js');
 const path = require('path');
 const flash = require('connect-flash');
+const bcrypt = require('bcrypt');
 
-module.exports = (req, res) => {
-	User.create(req.body, (error, user) => {
+module.exports = async (req, res) => {
+	User.create(req.body, async (error, user, next) => {
 		if (error) {
 			console.log(error);
 			const validationErrors = Object.keys(error.errors).map(
@@ -13,6 +14,9 @@ module.exports = (req, res) => {
 			req.flash('data', req.body);
 			return res.redirect('/auth/register');
 		}
-		res.redirect('/');
+
+		req.session.userID = user._id;
+		global.loggedIn = req.session.userID;
+		return res.redirect('/');
 	});
 };
