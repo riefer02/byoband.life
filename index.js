@@ -7,21 +7,13 @@ const fileUpload = require('express-fileupload');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
 
-const BlogPost = require('./models/BlogPost.js');
-const newPostController = require('./controllers/newPost');
-const homeController = require('./controllers/home');
-const storePostController = require('./controllers/storePost');
-const getPostController = require('./controllers/getPost');
 const validateMiddleWare = require('./middleware/validationMiddleWare');
-const newUserController = require('./controllers/newUser');
-const storeUserController = require('./controllers/storeUser');
-const loginController = require('./controllers/login');
-const loginUserController = require('./controllers/loginUser');
 const authMiddleware = require('./middleware/authMiddleware');
 const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware');
-const logoutController = require('./controllers/logoutController');
+
 const blogRouter = require('./routes/blogRoutes.js');
 const userRouter = require('./routes/userRoutes.js');
+const viewRouter = require('./routes/viewRoutes.js');
 
 mongoose.connect(
 	'mongodb+srv://riefer02:legacy21@byob-blog-1-c5qvl.mongodb.net/blog?retryWrites=true&w=majority',
@@ -52,30 +44,17 @@ app.use('*', (req, res, next) => {
 });
 app.use(flash());
 
+app.use((req, res, next) => {
+	req.requestTime = new Date().toISOString();
+	// console.log(req.headers);
+	next();
+});
+
 //MOUNTING ROUTES
-app.use('/', blogRouter);
-app.use('/', userRouter);
-
-// ROUTES
-app.get('/', homeController);
-app.get('/post/:id', getPostController);
-app.get('/posts/new', authMiddleware, newPostController);
-app.post('/posts/store', authMiddleware, storePostController);
-
-app.get('/auth/register', redirectIfAuthenticatedMiddleware, newUserController);
-app.get('/auth/login', redirectIfAuthenticatedMiddleware, loginController);
-app.post(
-	'/users/register',
-	redirectIfAuthenticatedMiddleware,
-	storeUserController
-);
-app.post(
-	'/users/login',
-	redirectIfAuthenticatedMiddleware,
-	loginUserController
-);
-app.get('/auth/logout', logoutController);
-// app.use((req, res) => res.render('notfound'));
+app.use('/', viewRouter);
+app.use('/posts', blogRouter);
+app.use('/users', userRouter);
+app.use((req, res) => res.render('notfound'));
 
 // SERVER
 app.listen(port, () => {

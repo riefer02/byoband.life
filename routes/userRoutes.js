@@ -3,7 +3,9 @@ const router = express.Router(); //Middleware, Sub-Application
 
 const userController = require('./../controllers/userController');
 
-router.get('/updateProfile', userController.updateUserProfile);
-router.get('/profile', userController.viewUserProfile);
+//Data Management Routes
+router.post('/register', userController.storeUser);
+router.post('/login', userController.loginUser);
+router.get('/logout', userController.logoutUser);
 
 module.exports = router;

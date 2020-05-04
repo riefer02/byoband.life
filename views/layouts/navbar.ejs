@@ -25,17 +25,17 @@
             </li> -->
         <% if(loggedIn) { %>
         <li class="nav-item">
-          <a class="nav-link" href="/posts/new">New Post</a>
+          <a class="nav-link" href="/new">New Post</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/auth/logout">Log Out</a>
+          <a class="nav-link" href="/users/logout">Log Out</a>
         </li>
         <% } %> <% if(!loggedIn) { %>
         <li class="nav-item">
-          <a class="nav-link" href="/auth/login">Login</a>
+          <a class="nav-link" href="/login">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/auth/register">New User</a>
+          <a class="nav-link" href="/register">New User</a>
         </li>
         <% } %>
       </ul>

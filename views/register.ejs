@@ -7,7 +7,7 @@
 
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('/img/contact-bg.jpg')">
+  <header class="masthead" style="background-image: url('/img/byob-collage-1.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -32,19 +32,35 @@
         <% } %>
       </ul>
       <% } %>
-        <form  action="/users/register" method="POST" enctype="multipart/form-data">
+        <form  action="/users/register" method="POST"  enctype="multipart/form-data">
+
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
               <label>User Name</label>
               <input type="text" class="form-control" placeholder="User Name" id="username" name="username" value="<%= username %>">
             </div>
           </div>
+
+         <!--  <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" placeholder="Email" id="email"
+            </div>
+          </div> -->
+
           <div class="control-group">
             <div class="form-group floating-label-form-group controls">
               <label>Password</label>
               <input type="password" class="form-control" placeholder="Password" id="password" name="password" value="<%= password %>">
             </div>
           </div>
+
+          <!-- <div class="control-group">
+            <div class="form-group floating-label-form-group controls">
+              <label>Confirm Password</label>
+              <input type="password" class="form-control" placeholder="Confirm Password" id="confirm_password" >
+            </div>
+          </div> -->
      
         
           <br>
