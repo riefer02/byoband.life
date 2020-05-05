@@ -20,8 +20,6 @@ let port = process.env.Port || 6969;
 if (port == null || port == '') port = 6969;
 // global.loggedIn = null;
 
-console.log(process.env);
-
 mongoose
 	.connect(
 		process.env.MONGODB_URI ||
@@ -65,8 +63,3 @@ app.use((req, res) => res.render('notfound'));
 app.listen(port, () => {
 	console.log(`App is listening on port ${port}...`);
 });
-
-setTimeout(() => {
-	console.log(process.env);
-}, 2000);
-console.log(process.env);
