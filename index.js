@@ -16,7 +16,7 @@ dotenv.config({ path: './config.env' });
 
 const app = new express();
 
-let port = process.env.Port || 6969;
+let port = process.env.PORT || 6969;
 if (port == null || port == '') port = 6969;
 // global.loggedIn = null;
 
