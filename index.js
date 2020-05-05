@@ -12,7 +12,8 @@ const userRouter = require('./routes/userRoutes.js');
 const viewRouter = require('./routes/viewRoutes.js');
 
 mongoose.connect(
-	'mongodb+srv://riefer02:legacy21@byob-blog-1-c5qvl.mongodb.net/blog?retryWrites=true&w=majority',
+	process.env.MONGODB_URI ||
+		'mongodb+srv://riefer02:legacy21@byob-blog-1-c5qvl.mongodb.net/blog?retryWrites=true&w=majority',
 	{ useNewUrlParser: true, useUnifiedTopology: true }
 );
 
@@ -51,6 +52,10 @@ app.use('/', viewRouter);
 app.use('/posts', blogRouter);
 app.use('/users', userRouter);
 app.use((req, res) => res.render('notfound'));
+
+// if (process.env.NODE_ENV === 'production') {
+
+// }
 
 // SERVER
 app.listen(port, () => {
