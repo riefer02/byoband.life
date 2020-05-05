@@ -15,11 +15,11 @@ exports.loginUser = (req, res, next) => {
 					req.session.userID = user._id;
 					res.redirect('/');
 				} else if (error) {
-					res.redirect('/users/login');
+					res.redirect('/login');
 				}
 			});
 		} else {
-			res.redirect('/users/login');
+			res.redirect('/login');
 		}
 	});
 };
