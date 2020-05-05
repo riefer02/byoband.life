@@ -3,8 +3,8 @@ const router = express.Router(); //Middleware, Sub-Application
 
 const viewController = require('./../controllers/viewController');
 
-const authMiddleware = require('./middleware/authMiddleware');
-const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware');
+const authMiddleware = require('./../middleware/authMiddleware');
+const redirectIfAuthenticatedMiddleware = require('./../middleware/redirectIfAuthenticatedMiddleware');
 
 //Page Routes
 router.get('/', viewController.viewHomePage);
