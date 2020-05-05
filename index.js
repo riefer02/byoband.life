@@ -7,9 +7,9 @@ const fileUpload = require('express-fileupload');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
 
-const validateMiddleWare = require('./middleware/validationMiddleWare');
-const authMiddleware = require('./middleware/authMiddleware');
-const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware');
+// const validateMiddleWare = require('./middleware/validationMiddleWare');
+// const authMiddleware = require('./middleware/authMiddleware');
+// const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware');
 
 const blogRouter = require('./routes/blogRoutes.js');
 const userRouter = require('./routes/userRoutes.js');
@@ -32,7 +32,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
-app.use('/posts/store', validateMiddleWare);
+// app.use('/posts/store', validateMiddleWare);
 app.use(
 	expressSession({
 		secret: 'dayzee',
