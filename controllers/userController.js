@@ -8,17 +8,18 @@ exports.loginUser = (req, res, next) => {
 	const { username, password } = req.body;
 
 	User.findOne({ username: username }, (error, user) => {
+		console.log('check');
 		if (user) {
 			bcrypt.compare(password, user.password, (error, same) => {
 				if (same) {
 					req.session.userID = user._id;
 					res.redirect('/');
 				} else if (error) {
-					res.redirect('/auth/login');
+					res.redirect('/users/login');
 				}
 			});
 		} else {
-			res.redirect('/auth/login');
+			res.redirect('/users/login');
 		}
 	});
 };
