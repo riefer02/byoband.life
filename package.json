@@ -22,7 +22,7 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.1.7-alpha.3",
     "express-session": "^1.17.1",
-    "mongoose": "^5.9.11",
+    "mongoose": "^5.9.12",
     "mongoose-unique-validator": "^2.0.3",
     "prettier": "^2.0.5",
     "validator": "^13.0.0"

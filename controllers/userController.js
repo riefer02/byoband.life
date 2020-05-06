@@ -4,11 +4,10 @@ const flash = require('connect-flash');
 const path = require('path');
 
 //Login user and return session ID
-exports.loginUser = (req, res, next) => {
+exports.loginUser = async (req, res, next) => {
 	const { username, password } = req.body;
 
-	User.findOne({ username: username }, (error, user) => {
-		console.log('check');
+	await User.findOne({ username: username }, (error, user) => {
 		if (user) {
 			bcrypt.compare(password, user.password, (error, same) => {
 				if (same) {
@@ -31,8 +30,7 @@ exports.logoutUser = (req, res, next) => {
 };
 
 exports.storeUser = async (req, res, next) => {
-	console.log(req.body);
-	User.create(req.body, async (error, user, next) => {
+	await User.create(req.body, async (error, user) => {
 		if (error) {
 			console.log(error);
 			const validationErrors = Object.keys(error.errors).map(
