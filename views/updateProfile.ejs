@@ -5,7 +5,10 @@
     <%- include('layouts/navbar'); -%>
 
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('');">
+    <header
+      class="masthead"
+      style="background-image: url('/img/byob-collage-1.jpg');"
+    >
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
@@ -28,22 +31,26 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-12">
-                      <h4>Your Profile</h4>
+                      <h4>Update Profile</h4>
                       <hr />
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <form>
+                      <form
+                        action="/users/update"
+                        method="POST"
+                        enctype="multipart/form-data"
+                      >
                         <div class="form-group row">
                           <label for="name" class="col-4 col-form-label"
-                            >First Name</label
+                            >Username</label
                           >
                           <div class="col-8">
                             <input
-                              id="name"
-                              name="name"
-                              placeholder="First Name"
+                              id="username"
+                              name="username"
+                              placeholder="Username"
                               class="form-control here"
                               type="text"
                             />
@@ -60,8 +67,7 @@
                               name="email"
                               placeholder="Email"
                               class="form-control here"
-                              required="required"
-                              type="text"
+                              type="email"
                             />
                           </div>
                         </div>
@@ -72,36 +78,34 @@
                           >
                           <div class="col-8">
                             <textarea
-                              id="publicinfo"
-                              name="publicinfo"
+                              id="bio"
+                              name="bio"
                               cols="40"
                               rows="4"
                               class="form-control"
+                              type="text"
                             ></textarea>
                           </div>
                         </div>
-                        <div class="form-group row">
-                          <label for="newpass" class="col-4 col-form-label"
-                            >New Password</label
-                          >
-                          <div class="col-8">
-                            <input
-                              id="newpass"
-                              name="newpass"
-                              placeholder="New Password"
-                              class="form-control here"
-                              type="text"
-                            />
-                          </div>
+                         <label>Image</label>
+                        <div
+                          class="form-group floating-label-form-group control"
+                        >
+                         
+                          <input
+                            type="file"
+                            id="image"
+                            class="form-control"
+                            name="image"
+                          />
                         </div>
                         <div class="form-group row">
                           <div class="offset-4 col-8">
                             <button
-                              name="submit"
                               type="submit"
-                              class="btn btn-primary"
+                              class="btn btn-primary mt-3"
                             >
-                              Update My Profile
+                              Update
                             </button>
                           </div>
                         </div>

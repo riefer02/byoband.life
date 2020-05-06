@@ -11,13 +11,21 @@ const UserSchema = new Schema({
 		unique: true,
 		minlength: [2, 'Name must be longer than one character.'],
 	},
+	email: {
+		type: String,
+		required: [true, 'Please provide a email.'],
+		lowercase: true,
+		unique: true,
+		validate: [validator.isEmail, 'Please provide a valid email'],
+	},
 	password: {
 		type: String,
 		required: [true, 'Please provide password.'],
 		minlength: [2, 'Password must be longer than eight characters.'],
 	},
-	photo: {
+	image: {
 		type: String, //PATH IN FILE SYSTEM WHERE IMAGE IS UPLOADED
+		default: '/img/default-user-image.png',
 	},
 	role: {
 		type: String,
@@ -26,6 +34,7 @@ const UserSchema = new Schema({
 	},
 	bio: {
 		type: String,
+		default: `Tell us about yourself...`,
 	},
 });
 

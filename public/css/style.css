@@ -10,3 +10,9 @@ h1 {
 	letter-spacing: 1px;
 	font-weight: 300;
 }
+
+a.nav-link.reset-password-link {
+	padding: 0;
+	font-size: 13px;
+	font-family: 'Kalam', cursive !important;
+}

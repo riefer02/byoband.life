@@ -9,7 +9,7 @@ const redirectIfAuthenticatedMiddleware = require('./../middleware/redirectIfAut
 //Page Routes
 router.get('/', viewController.viewHomePage);
 router.get('/update', authMiddleware, viewController.viewUpdateProfilePage);
-router.get('/profile', authMiddleware, viewController.viewUserProfile);
+router.get('/profile/:id', authMiddleware, viewController.viewUserProfile);
 router.get(
 	'/register',
 	redirectIfAuthenticatedMiddleware,
@@ -21,5 +21,6 @@ router.get(
 	viewController.viewLoginPage
 );
 router.get('/new', authMiddleware, viewController.viewCreatePostPage);
+router.get('/reset-password', viewController.viewResetPasswordPage);
 
 module.exports = router;
