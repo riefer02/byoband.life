@@ -62,15 +62,42 @@ exports.getUserData = async (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
 	// NEXT GET IMAGES AND EMAIL TO CHANGE/UPLOAD TO DATABASE -->
-	const data = {
-		username: req.body.username,
-		email: req.body.email,
-		bio: req.body.bio,
-		image: req.body.image || '',
-	};
+	var image = req.files.image;
+	const data = {};
+
+	if (req.body.username === '' || undefined) {
+		delete req.body.username;
+	} else {
+		data.username = req.body.username.trim();
+	}
+
+	if (req.body.email === '' || undefined) {
+		delete req.body.email;
+	} else {
+		data.email = req.body.email.trim();
+	}
+
+	if (req.body.bio === '' || undefined) {
+		delete req.body.bio;
+	} else {
+		data.bio = req.body.bio.trim();
+	}
 
 	let user = await User.findById(req.session.userID);
-	await user.updateOne({ username: data.username });
+
+	if (!data.username === false) {
+		await user.updateOne({ username: data.username });
+	}
+	if (!data.email === false) await user.updateOne({ email: data.email });
+	if (!data.bio === false) await user.updateOne({ bio: data.bio });
+	if (image) {
+		image.mv(
+			path.resolve(__dirname, '..', 'public/img', image.name),
+			async (error) => {
+				await user.updateOne({ image: '/img/' + image.name });
+			}
+		);
+	}
 
 	const updatedUser = await User.findById(req.session.userID);
 	user = updatedUser;

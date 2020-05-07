@@ -1,5 +1,6 @@
 const BlogPost = require('./../models/BlogPost.js');
 const path = require('path');
+const mv = require('mv');
 
 //Returns JSON of Blogs from DB
 exports.getBlogPosts = async (req, res, next) => {

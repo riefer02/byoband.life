@@ -40,12 +40,12 @@ exports.viewUserProfile = async (req, res, next) => {
 
 //Go to register New User Page
 exports.viewRegisterPage = (req, res, next) => {
-	var username = '';
-	var password = '';
-	var email = '';
+	let username = '';
+	let password = '';
+	let email = '';
 
 	const data = req.flash('data')[0];
-	if (typeof data != 'undefined') {
+	if (typeof data !== 'undefined') {
 		username = data.username;
 		password = data.password;
 		email = data.email;
