@@ -7,6 +7,9 @@ const fileUpload = require('express-fileupload');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
 const dotenv = require('dotenv');
+const mv = require('mv');
+
+// TEMP MODULES -> MAY UNINSTALL
 const multer = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
 
@@ -17,13 +20,17 @@ const keepAppAlive = require('./utils/keepAppAlive');
 
 dotenv.config({ path: './config.env' });
 
+// INIT APP
 const app = express();
 
+// PORT
 let port = process.env.PORT || 6969;
 if (port === null || port === '') port = 6969;
 
+// FUNCTION THAT PINGS HEROKU DYNO TO NOT GO IDLE
 keepAppAlive();
 
+// CONNECTION TO DATABASE
 mongoose
 	.connect(
 		process.env.MONGODB_URI ||
@@ -34,6 +41,7 @@ mongoose
 		console.log(`DB connection successful`);
 	});
 
+// VIEW TEMPLATE ENGINE 'EJS' INIT
 app.set('view engine', 'ejs');
 
 // MIDDLEWARE
@@ -62,6 +70,7 @@ app.use('/', viewRouter);
 app.use('/posts', blogRouter);
 app.use('/users', userRouter);
 
+// CATCH ALL ROUTE
 app.use((req, res) => res.render('notfound'));
 
 // SERVER
