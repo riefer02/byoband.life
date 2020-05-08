@@ -10,8 +10,8 @@ const dotenv = require('dotenv');
 const mv = require('mv');
 
 // TEMP MODULES -> MAY UNINSTALL
-const multer = require('multer');
-const GridFsStorage = require('multer-gridfs-storage');
+// const multer = require('multer');
+// const GridFsStorage = require('multer-gridfs-storage');
 
 const blogRouter = require('./routes/blogRoutes.js');
 const userRouter = require('./routes/userRoutes.js');

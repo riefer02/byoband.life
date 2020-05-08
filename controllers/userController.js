@@ -157,11 +157,3 @@ exports.updateProfilePicture = async (req, res, next) => {
 		res.redirect('/profile/:id');
 	});
 };
-
-// //Create a Route that gets users data and returns it so it renders their profile asap!
-// exports.getUserDataPostUpdateProfile = async (req, res, next) => {
-// 	const user = await User.find({ _id: req.session.userID });
-// 	res.render('profile', {
-// 		user,
-// 	});
-// };
