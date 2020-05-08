@@ -81,6 +81,7 @@ exports.updateProfile = async (req, res, next) => {
 	console.log(user);
 
 	user.save(function () {
+		// res.redirect('/users/data-update-for-profile');
 		res.render('profile', {
 			user,
 		});
@@ -131,10 +132,30 @@ exports.updateProfileInfo = async (req, res, next) => {
 	});
 };
 
-exports.updateProfilePicture = (req, res, next) => {
-	console.log(req.files);
+exports.updateProfilePicture = async (req, res, next) => {
+	// NEXT GET IMAGES AND EMAIL TO CHANGE/UPLOAD TO DATABASE -->
+	var image = req.files.image;
+	// const data = {};
 
-	res.redirect('/');
+	let user = await User.findById(req.session.userID);
+
+	if (image) {
+		image.mv(
+			path.resolve(__dirname, '..', 'public/img', image.name),
+			async (error) => {
+				await user.updateOne({ image: '/img/' + image.name });
+			}
+		);
+	}
+
+	const updatedUser = await User.findById(req.session.userID);
+	user = updatedUser;
+
+	console.log(image);
+
+	user.save(function () {
+		res.redirect('/profile/:id');
+	});
 };
 
 // //Create a Route that gets users data and returns it so it renders their profile asap!
