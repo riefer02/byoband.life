@@ -63,8 +63,35 @@ exports.getUserData = async (req, res, next) => {
 exports.updateProfile = async (req, res, next) => {
 	// NEXT GET IMAGES AND EMAIL TO CHANGE/UPLOAD TO DATABASE -->
 	var image = req.files.image;
+	// const data = {};
+
+	let user = await User.findById(req.session.userID);
+
+	if (image) {
+		image.mv(
+			path.resolve(__dirname, '..', 'public/img', image.name),
+			async (error) => {
+				await user.updateOne({ image: '/img/' + image.name });
+			}
+		);
+	}
+
+	const updatedUser = await User.findById(req.session.userID);
+	user = updatedUser;
+	console.log(user);
+
+	user.save(function () {
+		res.render('profile', {
+			user,
+		});
+	});
+};
+
+exports.updateProfileInfo = async (req, res, next) => {
+	console.log(req.body);
 	const data = {};
 
+	// APPENDS FORM INPUTS TO DATA OBJECT IF PRESENT
 	if (req.body.username === '' || undefined) {
 		delete req.body.username;
 	} else {
@@ -82,29 +109,38 @@ exports.updateProfile = async (req, res, next) => {
 	} else {
 		data.bio = req.body.bio.trim();
 	}
-
+	// QUERIES FOR USER
 	let user = await User.findById(req.session.userID);
 
+	// UPDATES USER DOCUMENT IF DATA EXISTS
 	if (!data.username === false) {
 		await user.updateOne({ username: data.username });
 	}
 	if (!data.email === false) await user.updateOne({ email: data.email });
 	if (!data.bio === false) await user.updateOne({ bio: data.bio });
-	if (image) {
-		image.mv(
-			path.resolve(__dirname, '..', 'public/img', image.name),
-			async (error) => {
-				await user.updateOne({ image: '/img/' + image.name });
-			}
-		);
-	}
 
+	//QUERIES FOR USER WITH UPDATED PROPERTY VALUES AND ASSIGNS TO USER VAR
 	const updatedUser = await User.findById(req.session.userID);
 	user = updatedUser;
 
+	//SAVES USER DOCUMENT IN DATABASE AND RETURNS VALUES TO PROFILE PAGE
 	user.save(function () {
 		res.render('profile', {
 			user,
 		});
 	});
 };
+
+exports.updateProfilePicture = (req, res, next) => {
+	console.log(req.files);
+
+	res.redirect('/');
+};
+
+// //Create a Route that gets users data and returns it so it renders their profile asap!
+// exports.getUserDataPostUpdateProfile = async (req, res, next) => {
+// 	const user = await User.find({ _id: req.session.userID });
+// 	res.render('profile', {
+// 		user,
+// 	});
+// };

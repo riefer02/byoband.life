@@ -38,7 +38,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <form
-                        action="/users/update"
+                        action="/users/update-profile-info"
                         method="POST"
                         enctype="multipart/form-data"
                       >
@@ -87,7 +87,22 @@
                             ></textarea>
                           </div>
                         </div>
-                        <label>Image</label>
+                         <div class="form-group row">
+                          <div class="offset-4 col-8">
+                            <button type="submit" class="btn btn-primary mt-3">
+                              Update Info
+                            </button>
+                          </div>
+                        </div>
+                     
+                      </form>
+                         <label>Image</label>
+                      <br>
+                         <form
+                        action="/users/update-profile-picture"
+                        method="POST"
+                        enctype="multipart/form-data"
+                      >
                         <div
                           class="form-group floating-label-form-group control"
                         >
@@ -101,7 +116,7 @@
                         <div class="form-group row">
                           <div class="offset-4 col-8">
                             <button type="submit" class="btn btn-primary mt-3">
-                              Update
+                              Update Image
                             </button>
                           </div>
                         </div>

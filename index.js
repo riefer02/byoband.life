@@ -7,6 +7,8 @@ const fileUpload = require('express-fileupload');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
 const dotenv = require('dotenv');
+const multer = require('multer');
+const GridFsStorage = require('multer-gridfs-storage');
 
 const blogRouter = require('./routes/blogRoutes.js');
 const userRouter = require('./routes/userRoutes.js');
@@ -61,25 +63,6 @@ app.use('/posts', blogRouter);
 app.use('/users', userRouter);
 
 app.use((req, res) => res.render('notfound'));
-
-// app.all('*', (req, res, next) => {
-// 	// const err = new Error(`can't find the ${req.originalUrl} on this server!`);
-// 	// err.status = 'fail';
-// 	// err.statusCode = 404;
-// 	// next(err); // PASSING ANYTHING INTO NEXT WILL BE ASSUMED TO BE AN ERROR AND BE PASSED TO GLOBAL ERROR HANDLING MIDDLEWARE
-// });
-
-// // FOUR ARGUMENTS LET EXPRESS KNOW ITS AN ERROR HANDLING MIDDLEWARE
-// app.use((err, req, res, next) => {
-// 	console.error(err.stack);
-// 	err.statusCode = err.statusCode || 500;
-// 	err.status = err.status || 'error';
-
-// res.status(err.status).json({
-// 	status: err.status,
-// 	message: err.message,
-// });
-// });
 
 // SERVER
 app.listen(port, () => {

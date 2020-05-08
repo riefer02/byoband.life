@@ -42,10 +42,14 @@ UserSchema.plugin(uniqueValidator);
 
 UserSchema.pre('save', function (next) {
 	const user = this;
-	bcrypt.hash(user.password, 10, (error, hash) => {
-		user.password = hash;
+	if (user.isModified('password')) {
+		bcrypt.hash(user.password, 10, (error, hash) => {
+			user.password = hash;
+			next();
+		});
+	} else {
 		next();
-	});
+	}
 });
 
 const User = mongoose.model('User', UserSchema);
