@@ -7,7 +7,6 @@ const fileUpload = require('express-fileupload');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
 const dotenv = require('dotenv');
-const mv = require('mv');
 
 const blogRouter = require('./routes/blogRoutes.js');
 const userRouter = require('./routes/userRoutes.js');
