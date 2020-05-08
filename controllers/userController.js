@@ -133,9 +133,7 @@ exports.updateProfileInfo = async (req, res, next) => {
 };
 
 exports.updateProfilePicture = async (req, res, next) => {
-	// NEXT GET IMAGES AND EMAIL TO CHANGE/UPLOAD TO DATABASE -->
 	var image = req.files.image;
-	// const data = {};
 
 	let user = await User.findById(req.session.userID);
 
