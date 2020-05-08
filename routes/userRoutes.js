@@ -10,6 +10,8 @@ router.get('/logout', userController.logoutUser);
 router.post('/update-profile-info', userController.updateProfileInfo);
 router.post('/update-profile-picture', userController.updateProfilePicture);
 router.get('/data', userController.getUserData);
+
+router.post('/reset-password'
 // router.get(
 // 	'/data-update-for-profile',
 // 	userController.getUserDataPostUpdateProfile

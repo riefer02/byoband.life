@@ -10,24 +10,3 @@ router.get('/:id', blogController.getBlogPostById);
 router.post('/store', validateMiddleWare, blogController.createBlogPost);
 
 module.exports = router;
-
-// // ROUTES
-// app.get('/', homeController);
-// app.get('/post/:id', getPostController);
-// app.get('/posts/new', authMiddleware, newPostController);
-// app.post('/posts/store', authMiddleware, storePostController);
-
-// app.get('/auth/register', redirectIfAuthenticatedMiddleware, newUserController);
-// app.get('/auth/login', redirectIfAuthenticatedMiddleware, loginController);
-// app.post(
-// 	'/users/register',
-// 	redirectIfAuthenticatedMiddleware,
-// 	storeUserController
-// );
-// app.post(
-// 	'/users/login',
-// 	redirectIfAuthenticatedMiddleware,
-// 	loginUserController
-// );
-// app.get('/auth/logout', logoutController);
-// app.use((req, res) => res.render('notfound'));

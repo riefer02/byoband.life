@@ -151,8 +151,6 @@ exports.updateProfilePicture = async (req, res, next) => {
 	const updatedUser = await User.findById(req.session.userID);
 	user = updatedUser;
 
-	console.log(image);
-
 	user.save(function () {
 		res.redirect('/profile/:id');
 	});
