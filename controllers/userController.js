@@ -3,24 +3,56 @@ const bcrypt = require('bcryptjs');
 const flash = require('connect-flash');
 const path = require('path');
 const validator = require('validator');
+const crypto = require('crypto');
+
+const sendEmail = require('./../utils/email');
 
 //Login user and return session ID
 exports.loginUser = async (req, res) => {
+	let msg;
 	const { username, password } = req.body;
-	await User.findOne({ username: username }, (error, user) => {
-		if (user) {
-			bcrypt.compare(password, user.password, (error, same) => {
-				if (same) {
-					req.session.userID = user._id;
-					res.redirect('/');
-				} else if (error) {
-					res.redirect('/login');
-				}
-			});
-		} else {
-			res.redirect('/login');
-		}
-	});
+
+	// CHECK IF USER PROVIDED AN EMAIL OR PASSWORD
+	if (!username || !password) {
+		req.flash(msg);
+		return res.render('login', {
+			msg: 'Please enter username and password',
+		});
+	}
+
+	// CHECK IF USER EXISTS AND PASSWORD IS CORRECT
+	const user = await User.findOne({ username }).select('+password'); // NORMAL PASSWORD NOT ALLOWED IN OUTPUT, EXPLICITLY SELECT IT USING '+'.
+
+	if (!user || !(await user.correctPassword(password, user.password))) {
+		req.flash(msg);
+		return res.render('login', {
+			msg: 'Incorrect username or password',
+		});
+	}
+	console.log('conclusion: welcome');
+	req.session.userID = user._id;
+	res.redirect('/');
+
+	// await User.findOne({ username: username }, (error, user) => {
+	// 	if (user) {
+	// 		bcrypt.compare(password, user.password, (error, same) => {
+	// 			console.log('checking');
+	// 			if (same) {
+	// console.log('conclusion 1');
+	// req.session.userID = user._id;
+	// res.redirect('/');
+	// 			} else if (error) {
+	// 				console.log('conclusion 2');
+	// 				res.redirect('/login');
+	// 			}
+	// 		});
+	// 	} else {
+	// 		req.flash(msg);
+	// 		res.render('login', {
+	// 			msg: 'Incorrect username and password',
+	// 		});
+	// 	}
+	// });
 };
 
 exports.logoutUser = (req, res, next) => {
@@ -152,4 +184,81 @@ exports.updateProfilePicture = async (req, res, next) => {
 	user.save(function () {
 		res.redirect('/profile/:id');
 	});
+};
+
+exports.forgotPassword = async (req, res, next) => {
+	// FIND USER BY POSTED ((GET)) EMAIL
+	const user = await User.findOne({ email: req.body.email });
+
+	if (!user) {
+		res.status(404).redirect('/reset-password', {
+			msg: 'User does not exist',
+		});
+	}
+
+	// GENERATE RANDOM RESET TOKEN
+	const resetToken = user.createPasswordResetToken();
+
+	// SAVES USER BUT TURNS OFF VALIDATORS ON THE MODEL
+	await user.save({ validateBeforeSave: false });
+
+	// SEND RESET TOKEN BY EMAIL
+	const resetURL = `${req.protocol}://${req.get(
+		'host'
+	)}/reset-password/${resetToken}`;
+	const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.`;
+
+	try {
+		await sendEmail({
+			email: user.email,
+			subject: 'Your Password Reset Token. (Valid for 10 Minutes)',
+			message,
+		});
+
+		res.status(200).redirect('/');
+	} catch (err) {
+		user.passwordResetToken = undefined;
+		user.passwordResetExpires = undefined;
+		await user.save({ validateBeforeSave: false });
+
+		res.status(500).redirect('/');
+	}
+};
+
+exports.resetPassword = async (req, res, next) => {
+	console.log(req.body);
+	// 1) GET USER BASED ON TOKEN
+	const hashedToken = crypto
+		.createHash('sha256')
+		.update(req.body.token)
+		.digest('hex');
+
+	console.log('got here son! here is your token: ' + hashedToken);
+
+	// CHECK IF THERE IS A USER OR THE TOKEN HAS EXPIRED, IF IT HAS EXPIRED WILL RETURN NO USER
+	const user = await User.findOne({
+		passwordResetToken: hashedToken,
+	});
+
+	console.log(user);
+
+	// 2) IF TOKEN HAS EXPIRE || NO USER, SET THE PASSWORD
+	if (!user) {
+		res.redirect(400, '/password-reset/:token');
+	}
+
+	// TAKES THE USERS NEW PASSWORD INPUT AND UPDATES IT ACROSS THE DOCUMENT
+	user.password = req.body.password;
+	user.passwordConfirm = req.body.passwordConfirm;
+	user.passwordResetToken = undefined;
+	user.passwordResetExpires = undefined;
+
+	await user.save();
+
+	// 3) UPDATED changedPasswordAt PROPERTY FOR THE USER
+
+	// 4) LOG THE USER IN
+	console.log('conclusion: welcome');
+	req.session.userID = user._id;
+	res.redirect('/');
 };

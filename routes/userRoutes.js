@@ -11,10 +11,7 @@ router.post('/update-profile-info', userController.updateProfileInfo);
 router.post('/update-profile-picture', userController.updateProfilePicture);
 router.get('/data', userController.getUserData);
 
-// router.post('/reset-password'
-// router.get(
-// 	'/data-update-for-profile',
-// 	userController.getUserDataPostUpdateProfile
-// );
+router.post('/forgot-password', userController.forgotPassword); //Sends email with reset token
+router.patch('/reset-password/:token', userController.resetPassword); //Updates and saves new password
 
 module.exports = router;

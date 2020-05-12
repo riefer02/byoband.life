@@ -1,12 +1,17 @@
 {
   "name": "blog-1",
+  "browserslist": [
+    "last 1 Chrome versions"
+  ],
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "debug": "ndb index.js"
+    "debug": "ndb index.js",
+    "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
+    "build:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
   },
   "author": "andrew riefenstahl",
   "license": "ISC",
@@ -14,6 +19,7 @@
     "node": "13.5.x"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
@@ -24,6 +30,7 @@
     "express-session": "^1.17.1",
     "mongoose": "^5.9.12",
     "mongoose-unique-validator": "^2.0.3",
+    "nodemailer": "^6.4.6",
     "validator": "^13.0.0"
   },
   "devDependencies": {
@@ -36,6 +43,7 @@
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-react": "^7.19.0",
     "mv": "^2.1.1",
+    "parcel-bundler": "^1.12.4",
     "prettier": "^2.0.5"
   }
 }

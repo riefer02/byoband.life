@@ -11,7 +11,10 @@ exports.viewHomePage = async (req, res, next) => {
 
 // To Login Page
 exports.viewLoginPage = (req, res, next) => {
-	res.render('login');
+	msg = null;
+	res.render('login', {
+		msg,
+	});
 };
 
 //Go to Post Page
@@ -32,7 +35,7 @@ exports.viewUpdateProfilePage = (req, res, next) => {
 
 //view a users profile page
 exports.viewUserProfile = async (req, res, next) => {
-	const user = await User.findOne({ _id: req.session.userID });
+	const user = await User.findOne({ _id: req.params.id });
 	res.status(200).render('profile', {
 		user,
 	});
@@ -43,21 +46,32 @@ exports.viewRegisterPage = (req, res, next) => {
 	let username = '';
 	let password = '';
 	let email = '';
+	let passwordConfirm = '';
 
 	const data = req.flash('data')[0];
 	if (typeof data !== 'undefined') {
 		username = data.username;
 		password = data.password;
 		email = data.email;
+		passwordConfirm = data.passwordConfirm;
 	}
 	res.render('register', {
 		errors: req.flash('validationErrors'),
 		username: username,
 		password: password,
 		email: email,
+		passwordConfirm: passwordConfirm,
 	});
 };
 
+exports.viewForgotPasswordPage = (req, res, next) => {
+	res.status(200).render('forgotPassword');
+};
+
 exports.viewResetPasswordPage = (req, res, next) => {
-	res.status(200).render('resetPassword');
+	const token = req.params.token;
+	console.log(token);
+	res.status(200).render('resetPassword', {
+		token,
+	});
 };

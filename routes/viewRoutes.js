@@ -6,10 +6,27 @@ const viewController = require('./../controllers/viewController');
 const authMiddleware = require('./../middleware/authMiddleware');
 const redirectIfAuthenticatedMiddleware = require('./../middleware/redirectIfAuthenticatedMiddleware');
 
+// TESTER CODE TO APPEND USER ID TO URL AS PARAM
+const addParamsToURL = (req, res, next) => {
+	newURL = req.url.replace(':id', req.session.userID);
+	req.url = newURL;
+	console.log(req.url);
+
+	req.params.id = req.session.userID;
+	console.log(req.params);
+
+	next();
+};
+
 //Page Routes
 router.get('/', viewController.viewHomePage);
 router.get('/update', authMiddleware, viewController.viewUpdateProfilePage);
-router.get('/profile/:id', authMiddleware, viewController.viewUserProfile);
+router.get(
+	'/profile/:id',
+	authMiddleware,
+	addParamsToURL,
+	viewController.viewUserProfile
+);
 router.get(
 	'/register',
 	redirectIfAuthenticatedMiddleware,
@@ -21,6 +38,7 @@ router.get(
 	viewController.viewLoginPage
 );
 router.get('/new', authMiddleware, viewController.viewCreatePostPage);
-router.get('/reset-password', viewController.viewResetPasswordPage);
+router.get('/forgot-password', viewController.viewForgotPasswordPage);
+router.get('/reset-password/:token', viewController.viewResetPasswordPage);
 
 module.exports = router;

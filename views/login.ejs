@@ -28,6 +28,14 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
+          <% if(msg != null || '') { %>
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-danger">
+              <%= msg %>
+            </li>
+     
+          </ul>
+                 <% } %>
           <form
             action="/users/login"
             method="POST"
@@ -70,7 +78,9 @@
               </button>
             </div>
           </form>
-           <a class="nav-link reset-password-link" href="/reset-password">Reset Password</a>
+          <a class="nav-link reset-password-link" href="/forgot-password"
+            >Reset Password</a
+          >
         </div>
       </div>
     </div>
