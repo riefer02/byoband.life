@@ -5,7 +5,10 @@
     <%- include('layouts/navbar'); -%>
 
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('/img/byob-collage-1.jpg');">
+    <header
+      class="masthead mb-0"
+      style="background-image: url('/img/byob-collage-1.jpg');"
+    >
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
@@ -20,6 +23,10 @@
         </div>
       </div>
     </header>
+
+    <% if(typeof user != 'undefined') { %>
+     <% include('layouts/alert') %>
+    <% } %>
 
     <!-- Main Content -->
     <div class="container">

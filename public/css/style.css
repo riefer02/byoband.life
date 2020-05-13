@@ -16,3 +16,24 @@ a.nav-link.reset-password-link {
 	font-size: 13px;
 	font-family: 'Kalam', cursive !important;
 }
+
+/*//////////////ALERT BANNER////////////////*/
+.alert.alert__row {
+	margin: 0;
+	background-image: linear-gradient(
+		to bottom right,
+		rgba(0, 203, 75, 0.7),
+		rgba(0, 200, 71, 0.8)
+	);
+	color: white;
+	border-radius: 0;
+	padding: 0.35rem 0.63rem;
+	padding-bottom: 0rem;
+}
+
+.alert__message {
+}
+
+.navbar-nav.ml-auto.custom-dropdown {
+	text-align: center;
+}
