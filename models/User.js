@@ -71,6 +71,13 @@ UserSchema.pre('save', function (next) {
 	}
 });
 
+// SET THE PASSWORD CHANGED AT PROPERTY
+// UserSchema.pre('save', function (next) {
+// 	if (!this.isModified('password') || this.isNew) return next();
+// 	this.passwordChangedAt = Date.now() - 1000; //PUT PROPERTY ONE SECOND IN THE PAST
+// 	next();
+// });
+
 //INSTANCE METHODS
 
 //LOGIN METHOD COMPARING INPUT PASSWORD TO USER DATABASE
@@ -92,7 +99,7 @@ UserSchema.methods.createPasswordResetToken = function () {
 	// MODIFYS THE DOCUMENT BUT DOES NOT SAVE
 	this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 
-	console.log({ resetToken }, this.passwordResetToken);
+	// console.log({ resetToken }, this.passwordResetToken);
 
 	return resetToken;
 };

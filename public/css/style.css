@@ -29,11 +29,39 @@ a.nav-link.reset-password-link {
 	border-radius: 0;
 	padding: 0.35rem 0.63rem;
 	padding-bottom: 0rem;
+	animation: welcome-banner 1s cubic-bezier(1, 0.01, 0.37, 1.06) 1;
 }
 
 .alert__message {
+	animation: message-fade-in ease 3s forwards;
 }
 
 .navbar-nav.ml-auto.custom-dropdown {
 	text-align: center;
+}
+
+@keyframes welcome-banner {
+	0% {
+		transform: scaleX(0);
+	}
+
+	100% {
+		transform: scaleX(1);
+	}
+}
+
+@keyframes message-fade-in {
+	0% {
+		transform: scaleY(0);
+		opacity: 0;
+	}
+
+	70% {
+		transform: scaleY(1);
+		opacity: 1;
+	}
+
+	100% {
+		color: black;
+	}
 }

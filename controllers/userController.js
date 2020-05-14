@@ -1,10 +1,11 @@
-const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const flash = require('connect-flash');
 const path = require('path');
 const validator = require('validator');
 const crypto = require('crypto');
+const axios = require('axios');
 
+const User = require('../models/User');
 const sendEmail = require('./../utils/email');
 
 //Login user and return session ID
@@ -29,7 +30,6 @@ exports.loginUser = async (req, res) => {
 			msg: 'Incorrect username or password',
 		});
 	}
-	console.log('conclusion: welcome');
 	req.session.userID = user._id;
 	res.redirect('/');
 
@@ -94,7 +94,7 @@ exports.getUserData = async (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
 	// NEXT GET IMAGES AND EMAIL TO CHANGE/UPLOAD TO DATABASE -->
-	var image = req.files.image;
+	let image = req.files.image;
 	// const data = {};
 
 	let user = await User.findById(req.session.userID);
@@ -110,7 +110,6 @@ exports.updateProfile = async (req, res, next) => {
 
 	const updatedUser = await User.findById(req.session.userID);
 	user = updatedUser;
-	console.log(user);
 
 	user.save(function () {
 		// res.redirect('/users/data-update-for-profile');
@@ -226,21 +225,16 @@ exports.forgotPassword = async (req, res, next) => {
 };
 
 exports.resetPassword = async (req, res, next) => {
-	console.log(req.body);
 	// 1) GET USER BASED ON TOKEN
 	const hashedToken = crypto
 		.createHash('sha256')
 		.update(req.body.token)
 		.digest('hex');
 
-	console.log('got here son! here is your token: ' + hashedToken);
-
 	// CHECK IF THERE IS A USER OR THE TOKEN HAS EXPIRED, IF IT HAS EXPIRED WILL RETURN NO USER
 	const user = await User.findOne({
 		passwordResetToken: hashedToken,
 	});
-
-	console.log(user);
 
 	// 2) IF TOKEN HAS EXPIRE || NO USER, SET THE PASSWORD
 	if (!user) {
@@ -258,7 +252,14 @@ exports.resetPassword = async (req, res, next) => {
 	// 3) UPDATED changedPasswordAt PROPERTY FOR THE USER
 
 	// 4) LOG THE USER IN
-	console.log('conclusion: welcome');
 	req.session.userID = user._id;
-	res.redirect('/');
+	// return res.redirect('/');
+
+	if (user) {
+		let redirect = { redirect: '/' };
+		return res.json(redirect);
+	} else {
+		let redirect = { redirect: '/login' };
+		return res.json(redirect);
+	}
 };

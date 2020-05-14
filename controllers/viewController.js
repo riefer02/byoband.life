@@ -3,10 +3,22 @@ const User = require('../models/User');
 
 // Populate all Blogposts on Home Page
 exports.viewHomePage = async (req, res, next) => {
+	//FIND AND POPULATE ALL BLOGPOSTS TO HOME PAGE
 	const blogposts = await BlogPost.find({}).populate('userid');
-	res.status(200).render('index', {
-		blogposts,
-	});
+
+	if (req.session.userID === undefined) {
+		res.status(200).render('index', {
+			blogposts,
+		});
+		// IF USER IS LOGGED IN HENCE SESSION ID EXISTS REVEAL WELCOME MESSAGE
+	} else if (typeof req.session.userID === 'string') {
+		let user = await User.findById(req.session.userID);
+
+		res.status(200).render('index', {
+			blogposts,
+			user,
+		});
+	}
 };
 
 // To Login Page

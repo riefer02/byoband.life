@@ -1893,6 +1893,8 @@ var _axios = _interopRequireDefault(require("axios"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const resetPassword = async (password, passwordConfirm, token) => {
+  console.log('testing');
+
   try {
     const res = await (0, _axios.default)({
       method: 'PATCH',
@@ -1902,10 +1904,20 @@ const resetPassword = async (password, passwordConfirm, token) => {
         passwordConfirm,
         token
       }
+    }).then(res => {
+      console.log(res);
+      console.log(res.data.redirect);
+
+      if (res.data.redirect === '/') {
+        console.log('trying to redirect...but..');
+        window.location.href = '/';
+      } else {
+        console.log('what the fuck is going on?');
+      }
     });
-    console.log(res);
+    console.log('this is the data');
   } catch (err) {
-    console.log(err.response.data);
+    console.log(err);
   }
 };
 
@@ -1920,7 +1932,7 @@ document.querySelector('#password-reset-form').addEventListener('submit', e => {
   const password = document.getElementById('password').value;
   const passwordConfirm = document.getElementById('passwordConfirm').value;
   const token = window.location.href.split('/');
-  console.log(password, passwordConfirm);
+  console.log(password, passwordConfirm, token[4]);
   (0, _passwordReset.resetPassword)(password, passwordConfirm, token[4]);
 });
 },{"./passwordReset":"passwordReset.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -1951,7 +1963,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63149" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63984" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -15,9 +15,7 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
               <h1>BYOB LIFE</h1>
-              <span class="subheading font-kalam"
-                >Austin Texas</span
-              >
+              <span class="subheading font-kalam">Austin Texas</span>
             </div>
           </div>
         </div>
@@ -25,7 +23,7 @@
     </header>
 
     <% if(typeof user != 'undefined') { %>
-     <% include('layouts/alert') %>
+     <%- include('layouts/alert'); -%> 
     <% } %>
 
     <!-- Main Content -->

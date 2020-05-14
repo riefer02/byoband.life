@@ -23,7 +23,7 @@ exports.getBlogPostById = async (req, res, next) => {
 };
 
 exports.createBlogPost = (req, res, next) => {
-	let image = req.files.image;
+	const image = req.files.image;
 	image.mv(
 		path.resolve(__dirname, '..', 'public/img', image.name),
 		async (error) => {

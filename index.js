@@ -18,6 +18,8 @@ dotenv.config({ path: './config.env' });
 // INIT APP
 const app = express();
 
+// GLOBAL VARIABLES
+
 // PORT
 let port = process.env.PORT || 6969;
 if (port === null || port === '') port = 6969;
