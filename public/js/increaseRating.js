@@ -4,7 +4,7 @@ export const increaseRating = async (postID) => {
 	try {
 		const res = await axios({
 			method: 'PATCH',
-			url: `http://localhost:6969/posts/like-post/${postID}`,
+			url: `http://byoband.life/posts/like-post/${postID}`,
 			data: {
 				postID,
 			},

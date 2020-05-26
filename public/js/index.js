@@ -2,7 +2,6 @@ import { resetPassword } from './passwordReset';
 import { increaseRating } from './increaseRating';
 
 const likePost = (event) => {
-	event.preventDefault();
 	// UPDATES RATING VALUE ON THE FRONT END
 
 	// SENDS TO EXPRESS ROUTE TO UPDATE RATING IN DATABASE

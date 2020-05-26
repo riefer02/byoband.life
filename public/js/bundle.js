@@ -1896,7 +1896,7 @@ const resetPassword = async (password, passwordConfirm, token) => {
   try {
     const res = await (0, _axios.default)({
       method: 'PATCH',
-      url: 'http://localhost:6969/users/reset-password/:token',
+      url: 'http://byoband.life/users/reset-password/:token',
       data: {
         password,
         passwordConfirm,
@@ -1936,7 +1936,7 @@ const increaseRating = async postID => {
   try {
     const res = await (0, _axios.default)({
       method: 'PATCH',
-      url: `http://localhost:6969/posts/like-post/${postID}`,
+      url: `http://byoband.life/posts/like-post/${postID}`,
       data: {
         postID
       }
@@ -1964,10 +1964,9 @@ var _passwordReset = require("./passwordReset");
 var _increaseRating = require("./increaseRating");
 
 const likePost = event => {
-  event.preventDefault(); // UPDATES RATING VALUE ON THE FRONT END
+  // UPDATES RATING VALUE ON THE FRONT END
   // SENDS TO EXPRESS ROUTE TO UPDATE RATING IN DATABASE
   // EVENT DELEGATION
-
   let postID = event.target.parentNode.parentNode.parentNode.id;
 
   if (postID) {
@@ -2027,7 +2026,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58178" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59836" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
