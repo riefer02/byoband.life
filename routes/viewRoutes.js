@@ -6,7 +6,7 @@ const viewController = require('./../controllers/viewController');
 const authMiddleware = require('./../middleware/authMiddleware');
 const redirectIfAuthenticatedMiddleware = require('./../middleware/redirectIfAuthenticatedMiddleware');
 
-// TESTER CODE TO APPEND USER ID TO URL AS PARAM
+// APPEND USER ID TO URL AS PARAM
 const addParamsToURL = (req, res, next) => {
 	newURL = req.url.replace(':id', req.session.userID);
 	req.url = newURL;

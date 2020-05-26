@@ -1893,8 +1893,6 @@ var _axios = _interopRequireDefault(require("axios"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const resetPassword = async (password, passwordConfirm, token) => {
-  console.log('testing');
-
   try {
     const res = await (0, _axios.default)({
       method: 'PATCH',
@@ -1922,20 +1920,86 @@ const resetPassword = async (password, passwordConfirm, token) => {
 };
 
 exports.resetPassword = resetPassword;
+},{"axios":"../../node_modules/axios/index.js"}],"increaseRating.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.increaseRating = void 0;
+
+var _axios = _interopRequireDefault(require("axios"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const increaseRating = async postID => {
+  try {
+    const res = await (0, _axios.default)({
+      method: 'PATCH',
+      url: `http://localhost:6969/posts/like-post/${postID}`,
+      data: {
+        postID
+      }
+    }).then(res => {
+      console.log('successfully updated rating');
+
+      if (res.data.redirect === '/') {
+        console.log('trying to redirect...but..');
+        window.location.href = '/';
+      } else {
+        console.log('exiting increaseRating function');
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+exports.increaseRating = increaseRating;
 },{"axios":"../../node_modules/axios/index.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _passwordReset = require("./passwordReset");
 
-document.querySelector('#password-reset-form').addEventListener('submit', e => {
-  e.preventDefault();
-  const password = document.getElementById('password').value;
-  const passwordConfirm = document.getElementById('passwordConfirm').value;
-  const token = window.location.href.split('/');
-  console.log(password, passwordConfirm, token[4]);
-  (0, _passwordReset.resetPassword)(password, passwordConfirm, token[4]);
-});
-},{"./passwordReset":"passwordReset.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var _increaseRating = require("./increaseRating");
+
+const likePost = event => {
+  event.preventDefault(); // UPDATES RATING VALUE ON THE FRONT END
+  // SENDS TO EXPRESS ROUTE TO UPDATE RATING IN DATABASE
+  // EVENT DELEGATION
+
+  let postID = event.target.parentNode.parentNode.parentNode.id;
+
+  if (postID) {
+    const increaseValue = postID => {
+      let ratingValue = parseInt(document.getElementById(`${postID}--rating`).innerHTML);
+      console.log(ratingValue);
+      ratingValue += 1;
+      document.getElementById(`${postID}--rating`).innerHTML = ratingValue;
+    };
+
+    increaseValue(postID);
+    (0, _increaseRating.increaseRating)(postID);
+  }
+}; // Increase Posts Rating EVENT HANDLER --> DEV
+
+
+document.querySelector('.event-delegation-1').addEventListener('click', likePost);
+
+if (document.querySelector('#password-reset-form')) {
+  // Password Reset EVENT HANDLER: Client Side Functionality
+  document.querySelector('#password-reset-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+    const token = window.location.href.split('/');
+    console.log(password, passwordConfirm, token[4]);
+    (0, _passwordReset.resetPassword)(password, passwordConfirm, token[4]);
+  });
+} else {
+  console.log('meow');
+}
+},{"./passwordReset":"passwordReset.js","./increaseRating":"increaseRating.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1963,7 +2027,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55061" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58178" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

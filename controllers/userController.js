@@ -32,27 +32,6 @@ exports.loginUser = async (req, res) => {
 	}
 	req.session.userID = user._id;
 	res.redirect('/');
-
-	// await User.findOne({ username: username }, (error, user) => {
-	// 	if (user) {
-	// 		bcrypt.compare(password, user.password, (error, same) => {
-	// 			console.log('checking');
-	// 			if (same) {
-	// console.log('conclusion 1');
-	// req.session.userID = user._id;
-	// res.redirect('/');
-	// 			} else if (error) {
-	// 				console.log('conclusion 2');
-	// 				res.redirect('/login');
-	// 			}
-	// 		});
-	// 	} else {
-	// 		req.flash(msg);
-	// 		res.render('login', {
-	// 			msg: 'Incorrect username and password',
-	// 		});
-	// 	}
-	// });
 };
 
 exports.logoutUser = (req, res, next) => {
@@ -262,4 +241,45 @@ exports.resetPassword = async (req, res, next) => {
 		let redirect = { redirect: '/login' };
 		return res.json(redirect);
 	}
+};
+
+exports.updatePassword = async (req, res, next) => {
+	try {
+		const passwordCurrent = req.body.password;
+
+		// 1) Get User from Collection
+		const user = await User.findById(req.session.userID).select('+password');
+
+		// 2) Check if posted Current password matches current password
+		if (!user.correctPassword(passwordCurrent, user.password)) {
+			return res.status(404).render('updateProfile', {
+				msg: 'Unable to validate password please try again.',
+			});
+		}
+
+		// 3) If so update password
+		user.password = req.body.password;
+		user.passwordConfirm = req.body.passwordConfirm;
+		await user.save();
+
+		// 4) Log user back in
+		req.session.userID = user._id;
+		return res.render('profile', {
+			user,
+		});
+	} catch (err) {
+		return res.status(404).render('updateProfile', {
+			msg: 'Unable to validate password please try again.',
+		});
+	}
+};
+
+// FUNCTIONALITY NEEDS TO BE FINISHED
+exports.deleteUser = async (req, res, next) => {
+	await User.findByIdAndUpdate({ _id: req.session.userID }, { active: false });
+
+	res.status(204).json({
+		status: 'success',
+		data: null,
+	});
 };

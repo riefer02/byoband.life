@@ -14,6 +14,10 @@ const BlogPostSchema = new Schema({
 		default: new Date(),
 	},
 	image: String,
+	rating: {
+		type: Number,
+		default: 0,
+	},
 });
 
 const BlogPost = mongoose.model('BlogPost', BlogPostSchema);

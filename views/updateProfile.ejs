@@ -31,7 +31,16 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-md-12">
-                      <h4>Update Profile</h4>
+                      <% if(msg != null || '') { %>
+                      <ul class="list-group">
+                        <li class="list-group-item list-group-item-danger">
+                          <%= msg %>
+                        </li>
+                      </ul>
+                      <% } %>
+                      <div class="d-flex justify-content-center">
+                      <h4 class="font-kalam">Update Profile</h4>
+                      </div>
                       <hr />
                     </div>
                   </div>
@@ -87,18 +96,76 @@
                             ></textarea>
                           </div>
                         </div>
-                         <div class="form-group row">
+                        <div class="form-group row">
                           <div class="offset-4 col-8">
-                            <button type="submit" class="btn btn-primary mt-3">
+                            <button type="submit" class="btn btn-custom mt-3">
                               Update Info
                             </button>
                           </div>
                         </div>
-                     
                       </form>
-                         <label>Image</label>
-                      <br>
-                         <form
+
+                      <!-- Password Update -->
+                      <label>Update Password</label>
+                      <form
+                        action="/users/update-current-password"
+                        method="POST"
+                        enctype="multipart/form-data"
+                      >
+                        <div class="form-group row">
+                          <label for="email" class="col-4 col-form-label"
+                            >Current Password</label
+                          >
+                          <div class="col-8">
+                            <input
+                              id="passwordCurrent"
+                              name="email"
+                              placeholder="Current Password"
+                              class="form-control here"
+                              type="password"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="email" class="col-4 col-form-label"
+                            >New Password</label
+                          >
+                          <div class="col-8">
+                            <input
+                              id="password"
+                              name="password"
+                              placeholder="Email"
+                              class="form-control here"
+                              type="password"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="email" class="col-4 col-form-label"
+                            >Confirm New Password</label
+                          >
+                          <div class="col-8">
+                            <input
+                              id="newPasswordConfirm"
+                              name="passwordConfirm"
+                              placeholder="Email"
+                              class="form-control here"
+                              type="password"
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="offset-4 col-8">
+                            <button type="submit" class="btn btn-custom mt-3">
+                              Update Password
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                      <!-- Profile Image Update -->
+                      <label>Image</label>
+                      <br />
+                      <form
                         action="/users/update-profile-picture"
                         method="POST"
                         enctype="multipart/form-data"
@@ -115,7 +182,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="offset-4 col-8">
-                            <button type="submit" class="btn btn-primary mt-3">
+                            <button type="submit" class="btn btn-custom mt-3">
                               Update Image
                             </button>
                           </div>

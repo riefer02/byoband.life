@@ -13,5 +13,9 @@ router.get('/data', userController.getUserData);
 
 router.post('/forgot-password', userController.forgotPassword); //Sends email with reset token
 router.patch('/reset-password/:token', userController.resetPassword); //Updates and saves new password
+router.post('/update-current-password', userController.updatePassword);
+
+//ROUTE TO BE DEVELOPED
+router.delete('/delete-user', userController.deleteUser);
 
 module.exports = router;

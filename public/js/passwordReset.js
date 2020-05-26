@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export const resetPassword = async (password, passwordConfirm, token) => {
-	console.log('testing');
 	try {
 		const res = await axios({
 			method: 'PATCH',

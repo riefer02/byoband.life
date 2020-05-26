@@ -26,8 +26,8 @@ const UserSchema = new Schema({
 	},
 	role: {
 		type: String,
-		enum: ['Neophyte', 'admin'],
-		default: 'Neophyte',
+		enum: ['neophyte', 'admin'],
+		default: 'neophyte',
 	},
 	bio: {
 		type: String,
@@ -53,6 +53,11 @@ const UserSchema = new Schema({
 			message: 'Passwords are not the same',
 		},
 	},
+	active: {
+		type: Boolean,
+		default: true,
+		select: false,
+	},
 });
 
 UserSchema.plugin(uniqueValidator);
@@ -64,6 +69,7 @@ UserSchema.pre('save', function (next) {
 		bcrypt.hash(user.password, 10, (error, hash) => {
 			user.password = hash;
 			this.passwordConfirm = undefined;
+			this.passwordChangedAt = Date.now() - 1000; //PUT PROPERTY ONE SECOND IN THE PAST
 			next();
 		});
 	} else {
@@ -71,15 +77,15 @@ UserSchema.pre('save', function (next) {
 	}
 });
 
-// SET THE PASSWORD CHANGED AT PROPERTY
-// UserSchema.pre('save', function (next) {
-// 	if (!this.isModified('password') || this.isNew) return next();
-// 	this.passwordChangedAt = Date.now() - 1000; //PUT PROPERTY ONE SECOND IN THE PAST
-// 	next();
-// });
+//QUERY HELPER
+//DONT USE ARROW FUNCTIONS SO THAT THE THIS KEY APPLIES TO THE DOCUMENT
+UserSchema.pre(/^find/, function (next) {
+	// this points to the current QUERY
+	this.find({ active: { $ne: false } });
+	next();
+});
 
 //INSTANCE METHODS
-
 //LOGIN METHOD COMPARING INPUT PASSWORD TO USER DATABASE
 UserSchema.methods.correctPassword = async function (
 	candidatePassword,

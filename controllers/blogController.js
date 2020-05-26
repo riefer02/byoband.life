@@ -36,3 +36,14 @@ exports.createBlogPost = (req, res, next) => {
 		}
 	);
 };
+
+exports.likeBlogPost = async (req, res, next) => {
+	console.log('hey!');
+	const blogpost = await BlogPost.findByIdAndUpdate(
+		req.params.id,
+		{ $inc: { rating: 1 } },
+		{ new: true }
+	);
+
+	res.end();
+};

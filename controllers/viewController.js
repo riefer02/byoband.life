@@ -1,5 +1,19 @@
 const BlogPost = require('../models/BlogPost.js');
 const User = require('../models/User');
+const limitStory = require('../utils/limitStory');
+
+//DEVELOPING FUNCTION TO STORE USER AND MOVE THROUGH ALL VIEWS IF USER EXISTS
+//TIRED WILL RETURN TO LATER
+const checkForUserAndStore = (req, data) => {
+	if (!(data instanceof Object)) {
+		data = {};
+	}
+
+	data.user = req.user;
+
+	console.log(data);
+	return data;
+};
 
 // Populate all Blogposts on Home Page
 exports.viewHomePage = async (req, res, next) => {
@@ -9,6 +23,7 @@ exports.viewHomePage = async (req, res, next) => {
 	if (req.session.userID === undefined) {
 		res.status(200).render('index', {
 			blogposts,
+			limitStory,
 		});
 		// IF USER IS LOGGED IN HENCE SESSION ID EXISTS REVEAL WELCOME MESSAGE
 	} else if (typeof req.session.userID === 'string') {
@@ -16,6 +31,7 @@ exports.viewHomePage = async (req, res, next) => {
 
 		res.status(200).render('index', {
 			blogposts,
+			limitStory,
 			user,
 		});
 	}

@@ -7,6 +7,11 @@ const fileUpload = require('express-fileupload');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
 const dotenv = require('dotenv');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
+const hpp = require('hpp');
 
 const blogRouter = require('./routes/blogRoutes.js');
 const userRouter = require('./routes/userRoutes.js');
@@ -42,10 +47,40 @@ mongoose
 app.set('view engine', 'ejs');
 
 // MIDDLEWARE
+// SET SECURITY HTTP HEADERS
+app.use(helmet());
+
+// LIMIT REQUESTS TO PROJECT AGAINST BRUTE FORCE ATTACK
+const limiter = rateLimit({
+	max: 500,
+	windowMs: 60 * 60 * 1000, // 60 minutes
+	message: 'Too many requests from this IP, please try again in an hour!',
+});
+app.use('/', limiter);
+
 app.use(express.static('public'));
-app.use(bodyParser.json());
+
+// BODY PARSER, READING DATA FROM BODY INTO REQ.BODY
+app.use(bodyParser.json({ limit: '10kb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// DATA SANITIZATION AGAINST NOSQL QUERY INJECTION
+app.use(mongoSanitize());
+
+// DATA SANITIZATION AGAINST XSS
+app.use(xss());
+
+// PREVENT PARAMETER POLLUTION
+app.use(
+	hpp({
+		whitelist: ['rating', 'username'],
+	})
+);
+
+// FILE UPLOAD SYSTEM
 app.use(fileUpload());
+
+// USER SESSION MANAGEMENT SYSTEM
 app.use(
 	expressSession({
 		secret: 'dayzee',
