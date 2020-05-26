@@ -44,6 +44,11 @@ exports.likeBlogPost = async (req, res, next) => {
 		{ $inc: { rating: 1 } },
 		{ new: true }
 	);
-
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header(
+		'Access-Control-Allow-Headers',
+		'Origin, X-Requested-With, Content-Type, Accept'
+	);
+	console.log(res);
 	res.end();
 };

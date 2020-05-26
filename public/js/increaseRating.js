@@ -2,9 +2,10 @@ import axios from 'axios';
 
 export const increaseRating = async (postID) => {
 	try {
+		const url = window.location.origin;
 		const res = await axios({
 			method: 'PATCH',
-			url: `http://byoband.life/posts/like-post/${postID}`,
+			url: `${url}/posts/like-post/${postID}`,
 			data: {
 				postID,
 			},

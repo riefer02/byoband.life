@@ -4,7 +4,7 @@ export const resetPassword = async (password, passwordConfirm, token) => {
 	try {
 		const res = await axios({
 			method: 'PATCH',
-			url: 'http://byoband.life/users/reset-password/:token',
+			url: 'http://localhost:6969/users/reset-password/:token',
 			data: {
 				password,
 				passwordConfirm,

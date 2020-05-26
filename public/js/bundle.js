@@ -1896,7 +1896,7 @@ const resetPassword = async (password, passwordConfirm, token) => {
   try {
     const res = await (0, _axios.default)({
       method: 'PATCH',
-      url: 'http://byoband.life/users/reset-password/:token',
+      url: 'http://localhost:6969/users/reset-password/:token',
       data: {
         password,
         passwordConfirm,
@@ -1934,9 +1934,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const increaseRating = async postID => {
   try {
+    const url = window.location.origin;
     const res = await (0, _axios.default)({
       method: 'PATCH',
-      url: `http://byoband.life/posts/like-post/${postID}`,
+      url: `${url}/posts/like-post/${postID}`,
       data: {
         postID
       }
@@ -2026,7 +2027,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60305" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61393" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

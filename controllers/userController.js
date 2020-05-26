@@ -64,7 +64,7 @@ exports.getUserData = async (req, res, next) => {
 
 	res.header('application/json');
 	res.status(404).json({
-		message: 'Here are your blogs sir.',
+		message: 'Here are your users sir.',
 		data: {
 			users,
 		},
