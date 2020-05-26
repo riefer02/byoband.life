@@ -203,9 +203,10 @@ p.copyright.text-muted {
 
 /*MEDIA QUERIES*/
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 361px) {
 	.container .navbar-brand {
-		font-size: 1rem;
-		letter-spacing: auto;
+		font-size: 1.1rem;
+		letter-spacing: normal;
+		margin-right: 0px;
 	}
 }
