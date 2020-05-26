@@ -38,7 +38,6 @@ exports.createBlogPost = (req, res, next) => {
 };
 
 exports.likeBlogPost = async (req, res, next) => {
-	console.log('hey!');
 	const blogpost = await BlogPost.findByIdAndUpdate(
 		req.params.id,
 		{ $inc: { rating: 1 } },
@@ -49,6 +48,5 @@ exports.likeBlogPost = async (req, res, next) => {
 		'Access-Control-Allow-Headers',
 		'Origin, X-Requested-With, Content-Type, Accept'
 	);
-	console.log(res);
 	res.end();
 };
