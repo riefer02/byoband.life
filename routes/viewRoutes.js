@@ -10,11 +10,7 @@ const redirectIfAuthenticatedMiddleware = require('./../middleware/redirectIfAut
 const addParamsToURL = (req, res, next) => {
 	newURL = req.url.replace(':id', req.session.userID);
 	req.url = newURL;
-	console.log(req.url);
-
 	req.params.id = req.session.userID;
-	console.log(req.params);
-
 	next();
 };
 

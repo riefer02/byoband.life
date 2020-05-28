@@ -1894,18 +1894,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const resetPassword = async (password, passwordConfirm, token) => {
   try {
+    // console.log('inside resetPassword.js');
+    const url = window.location.origin;
     const res = await (0, _axios.default)({
       method: 'PATCH',
-      url: 'http://localhost:6969/users/reset-password/:token',
+      url: `${url}/users/reset-password/:token`,
       data: {
         password,
         passwordConfirm,
         token
       }
     }).then(res => {
-      console.log(res);
-      console.log(res.data.redirect);
-
+      // console.log(res);
+      // console.log(res.data.redirect);
       if (res.data.redirect === '/') {
         console.log('trying to redirect...but..');
         window.location.href = '/';
@@ -1957,6 +1958,35 @@ const increaseRating = async postID => {
 };
 
 exports.increaseRating = increaseRating;
+},{"axios":"../../node_modules/axios/index.js"}],"stripe.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.purchaseTitle = void 0;
+
+var _axios = _interopRequireDefault(require("axios"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const stripe = Stripe('pk_test_Ktxe60dhNkEaxlNYJXm8bfGZ00pMVWvlpu');
+
+const purchaseTitle = async title => {
+  try {
+    // 1) GET SESSION FROM SERVER
+    const url = window.location.origin;
+    const session = await (0, _axios.default)(`${url}/store/checkout-session/${title}`); // 2) CREATE CHECKOUT FORM + CHARGE CREDIT CARD
+
+    await stripe.redirectToCheckout({
+      sessionId: session.data.session.id
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+exports.purchaseTitle = purchaseTitle;
 },{"axios":"../../node_modules/axios/index.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
@@ -1964,30 +1994,35 @@ var _passwordReset = require("./passwordReset");
 
 var _increaseRating = require("./increaseRating");
 
+var _stripe = require("./stripe.js");
+
 const likePost = event => {
-  // UPDATES RATING VALUE ON THE FRONT END
-  // SENDS TO EXPRESS ROUTE TO UPDATE RATING IN DATABASE
   // EVENT DELEGATION
   let postID = event.target.parentNode.parentNode.parentNode.id;
 
   if (postID) {
     const increaseValue = postID => {
       let ratingValue = parseInt(document.getElementById(`${postID}--rating`).innerHTML);
-      console.log(ratingValue);
+      console.log(ratingValue); // UPDATES RATING VALUE ON THE FRONT END
+
       ratingValue += 1;
       document.getElementById(`${postID}--rating`).innerHTML = ratingValue;
     };
 
-    increaseValue(postID);
+    increaseValue(postID); // SENDS TO EXPRESS ROUTE TO UPDATE RATING IN DATABASE
+
     (0, _increaseRating.increaseRating)(postID);
   }
 }; // Increase Posts Rating EVENT HANDLER --> DEV
 
 
-document.querySelector('.event-delegation-1').addEventListener('click', likePost);
+if (document.querySelector('.event-delegation-1')) {
+  document.querySelector('.event-delegation-1').addEventListener('click', likePost);
+}
 
 if (document.querySelector('#password-reset-form')) {
-  // Password Reset EVENT HANDLER: Client Side Functionality
+  console.log('the event handler exists here'); // Password Reset EVENT HANDLER: Client Side Functionality
+
   document.querySelector('#password-reset-form').addEventListener('submit', e => {
     e.preventDefault();
     const password = document.getElementById('password').value;
@@ -1999,7 +2034,19 @@ if (document.querySelector('#password-reset-form')) {
 } else {
   console.log('meow');
 }
-},{"./passwordReset":"passwordReset.js","./increaseRating":"increaseRating.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+if (document.getElementById('purchaseTitle-Grill-Master')) {
+  document.getElementById('purchaseTitle-Grill-Master').addEventListener('click', e => {
+    e.target.textContent = 'Processing...';
+    const {
+      title
+    } = e.target.dataset;
+    (0, _stripe.purchaseTitle)(title);
+  });
+} else {
+  console.log('bark bark');
+}
+},{"./passwordReset":"passwordReset.js","./increaseRating":"increaseRating.js","./stripe.js":"stripe.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2027,7 +2074,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61393" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53825" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

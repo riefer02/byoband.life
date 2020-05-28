@@ -16,6 +16,7 @@ const hpp = require('hpp');
 const blogRouter = require('./routes/blogRoutes.js');
 const userRouter = require('./routes/userRoutes.js');
 const viewRouter = require('./routes/viewRoutes.js');
+const storeRouter = require('./routes/storeRoutes.js');
 const keepAppAlive = require('./utils/keepAppAlive');
 
 dotenv.config({ path: './config.env' });
@@ -101,6 +102,7 @@ app.use((req, res, next) => {
 app.use('/', viewRouter);
 app.use('/posts', blogRouter);
 app.use('/users', userRouter);
+app.use('/store', storeRouter);
 
 // CATCH ALL ROUTE
 app.use((req, res) => res.render('notfound'));

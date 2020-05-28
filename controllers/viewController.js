@@ -10,8 +10,6 @@ const checkForUserAndStore = (req, data) => {
 	}
 
 	data.user = req.user;
-
-	console.log(data);
 	return data;
 };
 
@@ -98,7 +96,7 @@ exports.viewForgotPasswordPage = (req, res, next) => {
 
 exports.viewResetPasswordPage = (req, res, next) => {
 	const token = req.params.token;
-	console.log(token);
+	// console.log(token);
 	res.status(200).render('resetPassword', {
 		token,
 	});

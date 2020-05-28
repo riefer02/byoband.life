@@ -6,7 +6,7 @@ const crypto = require('crypto');
 const axios = require('axios');
 
 const User = require('../models/User');
-const sendEmail = require('./../utils/email');
+const Email = require('./../utils/email');
 
 //Login user and return session ID
 exports.loginUser = async (req, res) => {
@@ -43,7 +43,6 @@ exports.logoutUser = (req, res, next) => {
 exports.storeUser = async (req, res, next) => {
 	await User.create(req.body, async (error, user) => {
 		if (error) {
-			console.log(error);
 			const validationErrors = Object.keys(error.errors).map(
 				(key) => error.errors[key].message
 			);
@@ -51,7 +50,9 @@ exports.storeUser = async (req, res, next) => {
 			req.flash('data', req.body);
 			return res.redirect('/register');
 		}
+		const url = `${req.protocol}://${req.get('host')}/`;
 
+		await new Email(user, url).sendWelcome();
 		req.session.userID = user._id;
 		global.loggedIn = req.session.userID;
 		return res.redirect('/');
@@ -73,7 +74,7 @@ exports.getUserData = async (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
 	// NEXT GET IMAGES AND EMAIL TO CHANGE/UPLOAD TO DATABASE -->
-	let image = req.files.image;
+	const image = req.files.image;
 	// const data = {};
 
 	let user = await User.findById(req.session.userID);
@@ -99,7 +100,6 @@ exports.updateProfile = async (req, res, next) => {
 };
 
 exports.updateProfileInfo = async (req, res, next) => {
-	console.log(req.body);
 	const data = {};
 
 	// APPENDS FORM INPUTS TO DATA OBJECT IF PRESENT
@@ -143,7 +143,7 @@ exports.updateProfileInfo = async (req, res, next) => {
 };
 
 exports.updateProfilePicture = async (req, res, next) => {
-	var image = req.files.image;
+	const image = req.files.image;
 
 	let user = await User.findById(req.session.userID);
 
@@ -181,17 +181,11 @@ exports.forgotPassword = async (req, res, next) => {
 	await user.save({ validateBeforeSave: false });
 
 	// SEND RESET TOKEN BY EMAIL
-	const resetURL = `${req.protocol}://${req.get(
-		'host'
-	)}/reset-password/${resetToken}`;
-	const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.`;
-
 	try {
-		await sendEmail({
-			email: user.email,
-			subject: 'Your Password Reset Token. (Valid for 10 Minutes)',
-			message,
-		});
+		const resetURL = `${req.protocol}://${req.get(
+			'host'
+		)}/reset-password/${resetToken}`;
+		await new Email(user, resetURL).sendPasswordReset();
 
 		res.status(200).redirect('/');
 	} catch (err) {
@@ -234,11 +228,13 @@ exports.resetPassword = async (req, res, next) => {
 	req.session.userID = user._id;
 	// return res.redirect('/');
 
+	console.log('Im here');
+
 	if (user) {
-		let redirect = { redirect: '/' };
+		const redirect = { redirect: '/' };
 		return res.json(redirect);
 	} else {
-		let redirect = { redirect: '/login' };
+		const redirect = { redirect: '/login' };
 		return res.json(redirect);
 	}
 };

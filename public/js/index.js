@@ -1,11 +1,8 @@
 import { resetPassword } from './passwordReset';
 import { increaseRating } from './increaseRating';
+import { purchaseTitle } from './stripe.js';
 
 const likePost = (event) => {
-	// UPDATES RATING VALUE ON THE FRONT END
-
-	// SENDS TO EXPRESS ROUTE TO UPDATE RATING IN DATABASE
-
 	// EVENT DELEGATION
 	let postID = event.target.parentNode.parentNode.parentNode.id;
 	if (postID) {
@@ -14,20 +11,25 @@ const likePost = (event) => {
 				document.getElementById(`${postID}--rating`).innerHTML
 			);
 			console.log(ratingValue);
+			// UPDATES RATING VALUE ON THE FRONT END
 			ratingValue += 1;
 			document.getElementById(`${postID}--rating`).innerHTML = ratingValue;
 		};
 		increaseValue(postID);
+		// SENDS TO EXPRESS ROUTE TO UPDATE RATING IN DATABASE
 		increaseRating(postID);
 	}
 };
 
 // Increase Posts Rating EVENT HANDLER --> DEV
-document
-	.querySelector('.event-delegation-1')
-	.addEventListener('click', likePost);
+if (document.querySelector('.event-delegation-1')) {
+	document
+		.querySelector('.event-delegation-1')
+		.addEventListener('click', likePost);
+}
 
 if (document.querySelector('#password-reset-form')) {
+	console.log('the event handler exists here');
 	// Password Reset EVENT HANDLER: Client Side Functionality
 	document
 		.querySelector('#password-reset-form')
@@ -41,4 +43,16 @@ if (document.querySelector('#password-reset-form')) {
 		});
 } else {
 	console.log('meow');
+}
+
+if (document.getElementById('purchaseTitle-Grill-Master')) {
+	document
+		.getElementById('purchaseTitle-Grill-Master')
+		.addEventListener('click', (e) => {
+			e.target.textContent = 'Processing...';
+			const { title } = e.target.dataset;
+			purchaseTitle(title);
+		});
+} else {
+	console.log('bark bark');
 }
