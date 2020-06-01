@@ -15,7 +15,9 @@ exports.getCheckoutSession = async (req, res, next) => {
 		// 2) Create Checkout Session
 		const session = await stripe.checkout.sessions.create({
 			payment_method_types: ['card'],
-			success_url: `${req.protocol}://${req.get('host')}/`,
+			success_url: `${req.protocol}://${req.get('host')}/users/profile/?id=${
+				user._id
+			}&title=${req.params.title}`,
 			cancel_url: `${req.protocol}://${req.get('host')}/`,
 			customer_email: user.email,
 			client_reference_id: req.params.title,
@@ -30,7 +32,7 @@ exports.getCheckoutSession = async (req, res, next) => {
 			],
 		});
 
-		user.role = title;
+		// user.role = title;
 
 		// 3) Render Session as Response
 		res.status(200).json({
@@ -40,4 +42,18 @@ exports.getCheckoutSession = async (req, res, next) => {
 	} catch (error) {
 		console.log(`Here is the error sir: ${error}`);
 	}
+};
+
+exports.updateUserTitle = async (req, res, next) => {
+	//This is only temporary because it's unsecure...
+	const userID = req.query.id;
+	const title = req.query.title;
+
+	if (!userID && !title) {
+		return next();
+	}
+
+	await User.findByIdAndUpdate(userID, { role: title });
+
+	res.redirect(`req.originalUrl.split('?')[0]`);
 };

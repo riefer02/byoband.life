@@ -5,6 +5,7 @@ const viewController = require('./../controllers/viewController');
 
 const authMiddleware = require('./../middleware/authMiddleware');
 const redirectIfAuthenticatedMiddleware = require('./../middleware/redirectIfAuthenticatedMiddleware');
+const storeController = require('./../controllers/storeController');
 
 // APPEND USER ID TO URL AS PARAM
 const addParamsToURL = (req, res, next) => {
@@ -20,6 +21,7 @@ router.get('/update', authMiddleware, viewController.viewUpdateProfilePage);
 router.get(
 	'/profile/:id',
 	authMiddleware,
+	storeController.updateUserTitle,
 	addParamsToURL,
 	viewController.viewUserProfile
 );
