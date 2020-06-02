@@ -1,5 +1,5 @@
 const path = require('path');
-const BlogPost = require('./../models/BlogPost.js');
+const BlogPost = require('../models/BlogPost.js');
 
 //Returns JSON of Blogs from DB
 exports.getBlogPosts = async (req, res, next) => {
@@ -23,7 +23,7 @@ exports.getBlogPostById = async (req, res, next) => {
 };
 
 exports.createBlogPost = (req, res, next) => {
-	const image = req.files.image;
+	const {image} = req.files;
 	image.mv(
 		path.resolve(__dirname, '..', 'public/img', image.name),
 		async (error) => {
@@ -38,7 +38,7 @@ exports.createBlogPost = (req, res, next) => {
 };
 
 exports.likeBlogPost = async (req, res, next) => {
-	const blogpost = await BlogPost.findByIdAndUpdate(
+	await BlogPost.findByIdAndUpdate(
 		req.params.id,
 		{ $inc: { rating: 1 } },
 		{ new: true }

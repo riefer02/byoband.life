@@ -1,15 +1,17 @@
 const express = require('express');
+
 const router = express.Router(); //Middleware, Sub-Application
 
-const viewController = require('./../controllers/viewController');
 
-const authMiddleware = require('./../middleware/authMiddleware');
-const redirectIfAuthenticatedMiddleware = require('./../middleware/redirectIfAuthenticatedMiddleware');
-const storeController = require('./../controllers/storeController');
+
+const authMiddleware = require('../middleware/authMiddleware');
+const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthenticatedMiddleware');
+const storeController = require('../controllers/storeController');
+const viewController = require('../controllers/viewController');
 
 // APPEND USER ID TO URL AS PARAM
 const addParamsToURL = (req, res, next) => {
-	newURL = req.url.replace(':id', req.session.userID);
+	const newURL = req.url.replace(':id', req.session.userID);
 	req.url = newURL;
 	req.params.id = req.session.userID;
 	next();

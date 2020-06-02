@@ -1,12 +1,8 @@
-const bcrypt = require('bcryptjs');
-const flash = require('connect-flash');
 const path = require('path');
-const validator = require('validator');
 const crypto = require('crypto');
-const axios = require('axios');
 
 const User = require('../models/User');
-const Email = require('./../utils/email');
+const Email = require('../utils/email');
 
 //Login user and return session ID
 exports.loginUser = async (req, res) => {
@@ -74,8 +70,7 @@ exports.getUserData = async (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
 	// NEXT GET IMAGES AND EMAIL TO CHANGE/UPLOAD TO DATABASE -->
-	const image = req.files.image;
-	// const data = {};
+	const {image}= req.files;
 
 	let user = await User.findById(req.session.userID);
 
@@ -143,7 +138,7 @@ exports.updateProfileInfo = async (req, res, next) => {
 };
 
 exports.updateProfilePicture = async (req, res, next) => {
-	const image = req.files.image;
+	const {image} = req.files;
 
 	let user = await User.findById(req.session.userID);
 
@@ -228,15 +223,13 @@ exports.resetPassword = async (req, res, next) => {
 	req.session.userID = user._id;
 	// return res.redirect('/');
 
-	console.log('Im here');
-
 	if (user) {
 		const redirect = { redirect: '/' };
 		return res.json(redirect);
-	} else {
+	}
 		const redirect = { redirect: '/login' };
 		return res.json(redirect);
-	}
+	
 };
 
 exports.updatePassword = async (req, res, next) => {

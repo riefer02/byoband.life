@@ -2,17 +2,6 @@ const BlogPost = require('../models/BlogPost.js');
 const User = require('../models/User');
 const limitStory = require('../utils/limitStory');
 
-//DEVELOPING FUNCTION TO STORE USER AND MOVE THROUGH ALL VIEWS IF USER EXISTS
-//TIRED WILL RETURN TO LATER
-const checkForUserAndStore = (req, data) => {
-	if (!(data instanceof Object)) {
-		data = {};
-	}
-
-	data.user = req.user;
-	return data;
-};
-
 // Populate all Blogposts on Home Page
 exports.viewHomePage = async (req, res, next) => {
 	//FIND AND POPULATE ALL BLOGPOSTS TO HOME PAGE
@@ -25,7 +14,7 @@ exports.viewHomePage = async (req, res, next) => {
 		});
 		// IF USER IS LOGGED IN HENCE SESSION ID EXISTS REVEAL WELCOME MESSAGE
 	} else if (typeof req.session.userID === 'string') {
-		let user = await User.findById(req.session.userID);
+		const user = await User.findById(req.session.userID);
 
 		res.status(200).render('index', {
 			blogposts,
@@ -49,9 +38,8 @@ exports.viewCreatePostPage = (req, res, next) => {
 		return res.render('create', {
 			createPost: true,
 		});
-	} else {
-		res.redirect('/login');
 	}
+		res.redirect('/login');
 };
 
 //Go to update profile page
@@ -95,8 +83,7 @@ exports.viewForgotPasswordPage = (req, res, next) => {
 };
 
 exports.viewResetPasswordPage = (req, res, next) => {
-	const token = req.params.token;
-	// console.log(token);
+	const {token} = req.params;
 	res.status(200).render('resetPassword', {
 		token,
 	});

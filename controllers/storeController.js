@@ -8,16 +8,16 @@ exports.titleStore = (req, res, next) => {
 
 exports.getCheckoutSession = async (req, res, next) => {
 	try {
-		const title = req.params.title;
+		const {title} = req.params;
 		// GET USER
 		const user = await User.findById(req.session.userID);
 
 		// 2) Create Checkout Session
 		const session = await stripe.checkout.sessions.create({
 			payment_method_types: ['card'],
-			success_url: `${req.protocol}://${req.get('host')}/users/profile/?id=${
-				user._id
-			}&title=${req.params.title}`,
+			success_url: `${req.protocol}://${req.get(
+				'host'
+			)}/store/checkout-success/${user._id}/${req.params.title}`,
 			cancel_url: `${req.protocol}://${req.get('host')}/`,
 			customer_email: user.email,
 			client_reference_id: req.params.title,
@@ -47,7 +47,7 @@ exports.getCheckoutSession = async (req, res, next) => {
 exports.updateUserTitle = async (req, res, next) => {
 	//This is only temporary because it's unsecure...
 	const userID = req.query.id;
-	const title = req.query.title;
+	const {title} = req.query;
 
 	if (!userID && !title) {
 		return next();
@@ -56,4 +56,14 @@ exports.updateUserTitle = async (req, res, next) => {
 	await User.findByIdAndUpdate(userID, { role: title });
 
 	res.redirect(`req.originalUrl.split('?')[0]`);
+};
+
+exports.goToCheckoutSuccess = async (req, res, next) => {
+	const { id, title } = req.params;
+	const user = await User.findByIdAndUpdate(id, { role: title }, { new: true });
+
+	console.log(id);
+	console.log(title);
+	console.log(user.role);
+	res.end();
 };
