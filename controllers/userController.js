@@ -26,7 +26,9 @@ exports.loginUser = async (req, res) => {
 			msg: 'Incorrect username or password',
 		});
 	}
+
 	req.session.userID = user._id;
+	global.loggedIn = req.session.userID;
 	res.redirect('/');
 };
 
@@ -70,7 +72,7 @@ exports.getUserData = async (req, res, next) => {
 
 exports.updateProfile = async (req, res, next) => {
 	// NEXT GET IMAGES AND EMAIL TO CHANGE/UPLOAD TO DATABASE -->
-	const {image}= req.files;
+	const { image } = req.files;
 
 	let user = await User.findById(req.session.userID);
 
@@ -138,7 +140,7 @@ exports.updateProfileInfo = async (req, res, next) => {
 };
 
 exports.updateProfilePicture = async (req, res, next) => {
-	const {image} = req.files;
+	const { image } = req.files;
 
 	let user = await User.findById(req.session.userID);
 
@@ -227,9 +229,8 @@ exports.resetPassword = async (req, res, next) => {
 		const redirect = { redirect: '/' };
 		return res.json(redirect);
 	}
-		const redirect = { redirect: '/login' };
-		return res.json(redirect);
-	
+	const redirect = { redirect: '/login' };
+	return res.json(redirect);
 };
 
 exports.updatePassword = async (req, res, next) => {
@@ -271,4 +272,21 @@ exports.deleteUser = async (req, res, next) => {
 		status: 'success',
 		data: null,
 	});
+};
+
+exports.viewOtherUserProfile = async (req, res, next) => {
+	try {
+		const user = await User.findOne(req.params, (err, user) => {
+			//
+		});
+		const { image, bio, role, username } = user;
+		res.status(200).render('otherProfile', {
+			image,
+			bio,
+			role,
+			username,
+		});
+	} catch (error) {
+		console.log(`Here is the error sir: ${error}.`);
+	}
 };

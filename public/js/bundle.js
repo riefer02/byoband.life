@@ -1996,33 +1996,50 @@ var _increaseRating = require("./increaseRating");
 
 var _stripe = require("./stripe.js");
 
+const increaseValue = postID => {
+  let ratingValue = parseInt(document.getElementById(`${postID}--rating`).innerHTML); // UPDATES RATING VALUE ON THE FRONT END
+
+  ratingValue += 1;
+  document.getElementById(`${postID}--rating`).innerHTML = ratingValue;
+};
+
 const likePost = event => {
   // EVENT DELEGATION
   let postID = event.target.parentNode.parentNode.parentNode.id;
 
   if (postID) {
-    const increaseValue = postID => {
-      let ratingValue = parseInt(document.getElementById(`${postID}--rating`).innerHTML);
-      console.log(ratingValue); // UPDATES RATING VALUE ON THE FRONT END
-
-      ratingValue += 1;
-      document.getElementById(`${postID}--rating`).innerHTML = ratingValue;
-    };
-
     increaseValue(postID); // SENDS TO EXPRESS ROUTE TO UPDATE RATING IN DATABASE
 
     (0, _increaseRating.increaseRating)(postID);
   }
-}; // Increase Posts Rating EVENT HANDLER --> DEV
+};
+
+const likePostTwo = event => {
+  let postID = event.target.parentNode.id;
+
+  if (postID) {
+    increaseValue(postID);
+    (0, _increaseRating.increaseRating)(postID);
+  }
+}; // Increase Posts Rating EVENT HANDLER for Home Page
 
 
 if (document.querySelector('.event-delegation-1')) {
   document.querySelector('.event-delegation-1').addEventListener('click', likePost);
-}
+} else {
+  console.log('kaw');
+} // INCREASE RATING EVENT HANDLER FOR INDIVIDUAL POST PAGES
+
+
+if (document.querySelector('.event-delegation-2')) {
+  document.querySelector('.event-delegation-2').addEventListener('click', likePostTwo);
+} else {
+  console.log('moo');
+} // Password Reset EVENT HANDLER
+
 
 if (document.querySelector('#password-reset-form')) {
-  console.log('the event handler exists here'); // Password Reset EVENT HANDLER: Client Side Functionality
-
+  console.log('the event handler exists here');
   document.querySelector('#password-reset-form').addEventListener('submit', e => {
     e.preventDefault();
     const password = document.getElementById('password').value;
@@ -2033,7 +2050,8 @@ if (document.querySelector('#password-reset-form')) {
   });
 } else {
   console.log('meow');
-}
+} // Purchase Title Event Handler Prototype
+
 
 if (document.getElementById('purchaseTitle-Grill-Master')) {
   document.getElementById('purchaseTitle-Grill-Master').addEventListener('click', e => {
@@ -2074,7 +2092,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53825" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62385" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

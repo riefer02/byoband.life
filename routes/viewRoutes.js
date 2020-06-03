@@ -2,8 +2,6 @@ const express = require('express');
 
 const router = express.Router(); //Middleware, Sub-Application
 
-
-
 const authMiddleware = require('../middleware/authMiddleware');
 const redirectIfAuthenticatedMiddleware = require('../middleware/redirectIfAuthenticatedMiddleware');
 const storeController = require('../controllers/storeController');
@@ -23,7 +21,7 @@ router.get('/update', authMiddleware, viewController.viewUpdateProfilePage);
 router.get(
 	'/profile/:id',
 	authMiddleware,
-	storeController.updateUserTitle,
+	// storeController.updateUserTitle,
 	addParamsToURL,
 	viewController.viewUserProfile
 );

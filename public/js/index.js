@@ -2,35 +2,55 @@ import { resetPassword } from './passwordReset';
 import { increaseRating } from './increaseRating';
 import { purchaseTitle } from './stripe.js';
 
+const increaseValue = (postID) => {
+	let ratingValue = parseInt(
+		document.getElementById(`${postID}--rating`).innerHTML
+	);
+	// UPDATES RATING VALUE ON THE FRONT END
+	ratingValue += 1;
+	document.getElementById(`${postID}--rating`).innerHTML = ratingValue;
+};
+
 const likePost = (event) => {
 	// EVENT DELEGATION
 	let postID = event.target.parentNode.parentNode.parentNode.id;
 	if (postID) {
-		const increaseValue = (postID) => {
-			let ratingValue = parseInt(
-				document.getElementById(`${postID}--rating`).innerHTML
-			);
-			console.log(ratingValue);
-			// UPDATES RATING VALUE ON THE FRONT END
-			ratingValue += 1;
-			document.getElementById(`${postID}--rating`).innerHTML = ratingValue;
-		};
 		increaseValue(postID);
 		// SENDS TO EXPRESS ROUTE TO UPDATE RATING IN DATABASE
 		increaseRating(postID);
 	}
 };
 
-// Increase Posts Rating EVENT HANDLER --> DEV
+const likePostTwo = (event) => {
+	let postID = event.target.parentNode.id;
+	if (postID) {
+		increaseValue(postID);
+		increaseRating(postID);
+	}
+};
+
+// Increase Posts Rating EVENT HANDLER for Home Page
 if (document.querySelector('.event-delegation-1')) {
 	document
 		.querySelector('.event-delegation-1')
 		.addEventListener('click', likePost);
+} else {
+	console.log('kaw');
 }
 
+// INCREASE RATING EVENT HANDLER FOR INDIVIDUAL POST PAGES
+if (document.querySelector('.event-delegation-2')) {
+	document
+		.querySelector('.event-delegation-2')
+		.addEventListener('click', likePostTwo);
+} else {
+	console.log('moo');
+}
+
+// Password Reset EVENT HANDLER
 if (document.querySelector('#password-reset-form')) {
 	console.log('the event handler exists here');
-	// Password Reset EVENT HANDLER: Client Side Functionality
+
 	document
 		.querySelector('#password-reset-form')
 		.addEventListener('submit', (e) => {
@@ -45,6 +65,7 @@ if (document.querySelector('#password-reset-form')) {
 	console.log('meow');
 }
 
+// Purchase Title Event Handler Prototype
 if (document.getElementById('purchaseTitle-Grill-Master')) {
 	document
 		.getElementById('purchaseTitle-Grill-Master')
@@ -54,5 +75,5 @@ if (document.getElementById('purchaseTitle-Grill-Master')) {
 			purchaseTitle(title);
 		});
 } else {
-	console.log('bark bark');
+	console.log('bark');
 }

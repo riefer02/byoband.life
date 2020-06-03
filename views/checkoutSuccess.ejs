@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/header'); -%>
+  <body>
+    <%- include('layouts/navbar', {user: user}); -%>
+
+    <div
+      class="checkout-container d-flex justify-content-center align-items-center"
+    >
+      <div class="message-box d-flex flex-column align-items-center">
+        <h2>Congratulations <%=user.username%></h2>
+        <h2>You have earned the status of...</h2>
+        <h1 class="glow font-kalam"><%=user.role%></h1>
+        <a href="/profile/:id"
+          ><button class="btn btn-custom mt-5">Return to Profile</button></a
+        >
+      </div>
+    </div>
+
+    <hr />
+
+    <%- include('layouts/footer'); -%> <%- include('layouts/scripts'); -%>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('layouts/header'); -%>
+  <body>
+    <%- include('layouts/navbar'); -%>
+
+    <!-- Page Header -->
+    <header
+      class="masthead"
+      style="background-image: url('/img/byob-collage-1.jpg');"
+    >
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+              <h1><%= username %></h1>
+              <h2 class=" display-4 font-kalam"><%= role %></h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="card">
+              <div class="card-body">
+                <div
+                  class="col-sm d-flex flex-column justify-content-center align-items-center"
+                >
+                  <img
+                    src="<%= image %>"
+                    alt="..."
+                    class="img-thumbnail max-width"
+                  />
+
+                  <p class="lead mt-4">
+                    <%= bio %>
+                  </p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <hr />
+
+    <%- include('layouts/footer'); -%> <%- include('layouts/scripts'); -%>
+  </body>
+</html>

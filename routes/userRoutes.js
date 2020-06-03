@@ -15,6 +15,8 @@ router.post('/forgot-password', userController.forgotPassword); //Sends email wi
 router.patch('/reset-password/:token', userController.resetPassword); //Updates and saves new password
 router.post('/update-current-password', userController.updatePassword);
 
+router.get('/profile/:username', userController.viewOtherUserProfile);
+
 //ROUTE TO BE DEVELOPED
 router.delete('/delete-user', userController.deleteUser);
 

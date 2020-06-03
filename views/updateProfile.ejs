@@ -52,10 +52,7 @@
                         enctype="multipart/form-data"
                       >
                         <div class="form-group row">
-                          <label for="name" class="col-4 col-form-label"
-                            >Username</label
-                          >
-                          <div class="col-8">
+                          <div class="col-8 offset-2">
                             <input
                               id="username"
                               name="username"
@@ -67,10 +64,7 @@
                         </div>
 
                         <div class="form-group row">
-                          <label for="email" class="col-4 col-form-label"
-                            >Email</label
-                          >
-                          <div class="col-8">
+                          <div class="col-8 offset-2">
                             <input
                               id="email"
                               name="email"
@@ -82,10 +76,7 @@
                         </div>
 
                         <div class="form-group row">
-                          <label for="publicinfo" class="col-4 col-form-label"
-                            >Bio</label
-                          >
-                          <div class="col-8">
+                          <div class="col-8 offset-2">
                             <textarea
                               id="bio"
                               name="bio"
@@ -93,41 +84,41 @@
                               rows="4"
                               class="form-control"
                               type="text"
+                              placeholder="Biography"
                             ></textarea>
                           </div>
                         </div>
-                        <div class="form-group row">
-                          <div class="offset-4 col-8">
-                            <button type="submit" class="btn btn-custom mt-3">
-                              Update Info
-                            </button>
-                          </div>
+                        <div
+                          class="form-group row d-flex justify-content-center"
+                        >
+                          <button type="submit" class="btn btn-custom mt-3">
+                            Update Info
+                          </button>
                         </div>
                       </form>
 
                       <!-- PURCHASE NEW ROLE/TITLE -->
-                      <div class="form-group row">
-                        <div class="offset-4 col-8">
-                          <a href="/store/upgrade-title">
-                            <button type="submit" class="btn btn-custom mt-3">
-                              Purchase New Title
-                            </button>
-                          </a>
-                        </div>
+                      <div class="form-group row d-flex justify-content-center">
+                        <a href="/store/upgrade-title">
+                          <button type="submit" class="btn btn-custom mt-3">
+                            Purchase New Title
+                          </button>
+                        </a>
                       </div>
 
+                  </br>
                       <!-- Password Update -->
-                      <label>Update Password</label>
+                      <div class="d-flex justify-content-center">
+                        <h4 class="font-kalam">Update Password</h4>
+                      </div>
+                      <hr />
                       <form
                         action="/users/update-current-password"
                         method="POST"
                         enctype="multipart/form-data"
                       >
                         <div class="form-group row">
-                          <label for="email" class="col-4 col-form-label"
-                            >Current Password</label
-                          >
-                          <div class="col-8">
+                          <div class="col-8 offset-2">
                             <input
                               id="passwordCurrent"
                               name="email"
@@ -138,51 +129,49 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label for="email" class="col-4 col-form-label"
-                            >New Password</label
-                          >
-                          <div class="col-8">
+                          <div class="col-8 offset-2">
                             <input
                               id="password"
                               name="password"
-                              placeholder="Email"
+                              placeholder="New Password"
                               class="form-control here"
                               type="password"
                             />
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label for="email" class="col-4 col-form-label"
-                            >Confirm New Password</label
-                          >
-                          <div class="col-8">
+                          <div class="col-8 offset-2">
                             <input
                               id="newPasswordConfirm"
                               name="passwordConfirm"
-                              placeholder="Email"
+                              placeholder="New Password"
                               class="form-control here"
                               type="password"
                             />
                           </div>
                         </div>
-                        <div class="form-group row">
-                          <div class="offset-4 col-8">
-                            <button type="submit" class="btn btn-custom mt-3">
-                              Update Password
-                            </button>
-                          </div>
+                        <div
+                          class="form-group row d-flex justify-content-center"
+                        >
+                          <button type="submit" class="btn btn-custom mt-3">
+                            Update Password
+                          </button>
                         </div>
                       </form>
                       <!-- Profile Image Update -->
-                      <label>Image</label>
+                      <div class="d-flex justify-content-center">
+                        <h4 class="font-kalam">Profile Image</h4>
+                      </br>
+                      </div>
                       <br />
                       <form
                         action="/users/update-profile-picture"
                         method="POST"
                         enctype="multipart/form-data"
                       >
+                      <div class="d-flex justify-content-center ">
                         <div
-                          class="form-group floating-label-form-group control"
+                          class="form-group floating-label-form-group control "
                         >
                           <input
                             type="file"
@@ -191,12 +180,13 @@
                             name="image"
                           />
                         </div>
-                        <div class="form-group row">
-                          <div class="offset-4 col-8">
-                            <button type="submit" class="btn btn-custom mt-3">
-                              Update Image
-                            </button>
-                          </div>
+                        </div>
+                        <div
+                          class="form-group row d-flex justify-content-center"
+                        >
+                          <button type="submit" class="btn btn-custom mt-3">
+                            Update Image
+                          </button>
                         </div>
                       </form>
                     </div>

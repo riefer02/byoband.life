@@ -8,7 +8,7 @@ exports.titleStore = (req, res, next) => {
 
 exports.getCheckoutSession = async (req, res, next) => {
 	try {
-		const {title} = req.params;
+		const { title } = req.params;
 		// GET USER
 		const user = await User.findById(req.session.userID);
 
@@ -44,26 +44,27 @@ exports.getCheckoutSession = async (req, res, next) => {
 	}
 };
 
-exports.updateUserTitle = async (req, res, next) => {
-	//This is only temporary because it's unsecure...
-	const userID = req.query.id;
-	const {title} = req.query;
+// exports.updateUserTitle = async (req, res, next) => {
+// 	//This is only temporary because it's unsecure...
+// 	const userID = req.query.id;
+// 	const { title } = req.query;
 
-	if (!userID && !title) {
-		return next();
-	}
+// 	if (!userID && !title) {
+// 		return next();
+// 	}
 
-	await User.findByIdAndUpdate(userID, { role: title });
+// 	await User.findByIdAndUpdate(userID, { role: title });
 
-	res.redirect(`req.originalUrl.split('?')[0]`);
-};
+// 	res.redirect(`req.originalUrl.split('?')[0]`);
+// };
 
 exports.goToCheckoutSuccess = async (req, res, next) => {
 	const { id, title } = req.params;
 	const user = await User.findByIdAndUpdate(id, { role: title }, { new: true });
 
-	console.log(id);
-	console.log(title);
 	console.log(user.role);
-	res.end();
+
+	res.render('checkoutSuccess', {
+		user,
+	});
 };
