@@ -15,11 +15,16 @@ exports.getCheckoutSession = async (req, res, next) => {
 		// 2) Create Checkout Session
 		const session = await stripe.checkout.sessions.create({
 			payment_method_types: ['card'],
-			success_url: `${req.protocol}://${req.get(
-				'host'
-			)}/store/checkout-success/${user._id}/${req.params.title}`,
+			success_url: `${req.protocol}://${req.get('host')}/webhook-checkout`,
+
+			// success_url: `${req.protocol}://${req.get(
+			// 	'host'
+			// )}/store/checkout-success/${user._id}/${req.params.title}`,
 			cancel_url: `${req.protocol}://${req.get('host')}/`,
 			customer_email: user.email,
+			metadata: {
+				buyer: user.username,
+			},
 			client_reference_id: req.params.title,
 			line_items: [
 				{
@@ -31,6 +36,8 @@ exports.getCheckoutSession = async (req, res, next) => {
 				},
 			],
 		});
+
+		console.log(session.success_url);
 
 		// user.role = title;
 
@@ -44,20 +51,6 @@ exports.getCheckoutSession = async (req, res, next) => {
 	}
 };
 
-// exports.updateUserTitle = async (req, res, next) => {
-// 	//This is only temporary because it's unsecure...
-// 	const userID = req.query.id;
-// 	const { title } = req.query;
-
-// 	if (!userID && !title) {
-// 		return next();
-// 	}
-
-// 	await User.findByIdAndUpdate(userID, { role: title });
-
-// 	res.redirect(`req.originalUrl.split('?')[0]`);
-// };
-
 exports.goToCheckoutSuccess = async (req, res, next) => {
 	const { id, title } = req.params;
 	const user = await User.findByIdAndUpdate(id, { role: title }, { new: true });
@@ -67,4 +60,43 @@ exports.goToCheckoutSuccess = async (req, res, next) => {
 	res.render('checkoutSuccess', {
 		user,
 	});
+};
+
+const createTitleCheckout = async (session) => {
+	const buyer = session.metadata.buyer;
+	const title = session.client_reference_id;
+	const user = await User.findAndUpdate(
+		{ username: user },
+		{ role: title },
+		{ new: true }
+	);
+
+	console.log(user.role);
+
+	res.render('checkoutSuccess', {
+		user,
+	});
+};
+
+exports.webhookCheckout = (req, res, next) => {
+	console.log('testing');
+	const signature = req.headers['strip-signature'];
+
+	let event;
+
+	try {
+		event = stripe.webhooks.constructEvent(
+			req.body,
+			signature,
+			process.env.STRIPE_WEBHOOK_SECRET
+		);
+	} catch (error) {
+		return res.status(400).send(`Webhook error ${error.message}`);
+	}
+
+	if (event.type === 'checkout.session.completed') {
+		createTitleCheckout(event.data.object);
+
+		res.status(200).json({ recieved: true });
+	}
 };

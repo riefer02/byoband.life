@@ -17,6 +17,7 @@ const blogRouter = require('./routes/blogRoutes.js');
 const userRouter = require('./routes/userRoutes.js');
 const viewRouter = require('./routes/viewRoutes.js');
 const storeRouter = require('./routes/storeRoutes.js');
+const storeController = require('./controllers/storeController');
 const keepAppAlive = require('./utils/keepAppAlive');
 
 dotenv.config({ path: './config.env' });
@@ -58,6 +59,12 @@ const limiter = rateLimit({
 	message: 'Too many requests from this IP, please try again in an hour!',
 });
 app.use('/', limiter);
+
+app.post(
+	'/webhook-checkout',
+	express.raw({ type: 'application/json' }),
+	storeController.webhookCheckout
+);
 
 app.use(express.static('public'));
 
