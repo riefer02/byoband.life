@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const stripe = Stripe('pk_test_Ktxe60dhNkEaxlNYJXm8bfGZ00pMVWvlpu');
+const stripe = Stripe('pk_live_4mar4NwJHFoWObczaHjsrM4k00HobilXag');
 
 export const purchaseTitle = async (title) => {
 	try {

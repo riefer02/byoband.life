@@ -1970,7 +1970,7 @@ var _axios = _interopRequireDefault(require("axios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const stripe = Stripe('pk_test_Ktxe60dhNkEaxlNYJXm8bfGZ00pMVWvlpu');
+const stripe = Stripe('pk_live_4mar4NwJHFoWObczaHjsrM4k00HobilXag');
 
 const purchaseTitle = async title => {
   try {
@@ -2094,7 +2094,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50221" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58448" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
