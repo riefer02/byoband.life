@@ -12,6 +12,7 @@ router.get(
 );
 
 router.get('/upgrade-title', authMiddleware, storeController.titleStore);
-router.get('/checkout-success/:id/:title', storeController.goToCheckoutSuccess);
+router.get('/checkout-success/', storeController.goToCheckoutSuccess);
+// router.get('/checkout-success/:id/:title', storeController.goToCheckoutSuccess);
 
 module.exports = router;
