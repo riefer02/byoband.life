@@ -66,14 +66,14 @@ if (document.querySelector('#password-reset-form')) {
 }
 
 // Purchase Title Event Handler Prototype
-if (document.getElementById('purchaseTitle-Grill-Master')) {
-	document
-		.getElementById('purchaseTitle-Grill-Master')
-		.addEventListener('click', (e) => {
+if (document.querySelector('.purchaseTitle')) {
+	document.querySelectorAll('.purchaseTitle').forEach((el) => {
+		addEventListener('click', (e) => {
 			e.target.textContent = 'Processing...';
 			const { title } = e.target.dataset;
 			purchaseTitle(title);
 		});
+	});
 } else {
 	console.log('bark');
 }

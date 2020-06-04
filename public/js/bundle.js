@@ -2053,16 +2053,18 @@ if (document.querySelector('#password-reset-form')) {
 } // Purchase Title Event Handler Prototype
 
 
-if (document.getElementById('purchaseTitle-Grill-Master')) {
-  document.getElementById('purchaseTitle-Grill-Master').addEventListener('click', e => {
-    e.target.textContent = 'Processing...';
-    const {
-      title
-    } = e.target.dataset;
-    (0, _stripe.purchaseTitle)(title);
+if (document.querySelector('.purchaseTitle')) {
+  document.querySelectorAll('.purchaseTitle').forEach(el => {
+    addEventListener('click', e => {
+      e.target.textContent = 'Processing...';
+      const {
+        title
+      } = e.target.dataset;
+      (0, _stripe.purchaseTitle)(title);
+    });
   });
 } else {
-  console.log('bark bark');
+  console.log('bark');
 }
 },{"./passwordReset":"passwordReset.js","./increaseRating":"increaseRating.js","./stripe.js":"stripe.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -2092,7 +2094,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62385" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50221" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
