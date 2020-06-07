@@ -22,6 +22,9 @@ const keepAppAlive = require('./utils/keepAppAlive');
 
 dotenv.config({ path: './config.env' });
 
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+
 // INIT APP
 const app = express();
 
