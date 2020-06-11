@@ -34,6 +34,9 @@ if (document.querySelector('.event-delegation-1')) {
 	document
 		.querySelector('.event-delegation-1')
 		.addEventListener('click', likePost);
+	document
+		.querySelector('.event-delegation-1')
+		.addEventListener('touchstart', likePost);
 } else {
 	console.log('kaw');
 }
@@ -43,6 +46,9 @@ if (document.querySelector('.event-delegation-2')) {
 	document
 		.querySelector('.event-delegation-2')
 		.addEventListener('click', likePostTwo);
+	document
+		.querySelector('.event-delegation-2')
+		.addEventListener('touchstart', likePost);
 } else {
 	console.log('moo');
 }
