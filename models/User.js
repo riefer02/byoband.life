@@ -27,7 +27,19 @@ const UserSchema = new Schema({
 	},
 	role: {
 		type: String,
-		enum: ['neophyte', 'admin'],
+		enum: [
+			'neophyte',
+			'admin',
+			'Grill-Master',
+			'Huck-Master',
+			'Gutter-Punk',
+			'Home-Owner',
+			'Lewd-Dude',
+			'Therapist',
+			'Space-Cadet',
+			'Purp-Skurp',
+			'Creepy-Birder',
+		],
 		default: 'neophyte',
 	},
 	bio: {

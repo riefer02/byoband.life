@@ -5,7 +5,9 @@ const limitStory = require('../utils/limitStory');
 // Populate all Blogposts on Home Page
 exports.viewHomePage = async (req, res, next) => {
 	//FIND AND POPULATE ALL BLOGPOSTS TO HOME PAGE
-	const blogposts = await BlogPost.find({}).populate('userid');
+	const blogposts = await BlogPost.find({})
+		.populate('userid')
+		.sort({ datePosted: -1 });
 
 	if (req.session.userID === undefined) {
 		res.status(200).render('index', {
@@ -39,7 +41,7 @@ exports.viewCreatePostPage = (req, res, next) => {
 			createPost: true,
 		});
 	}
-		res.redirect('/login');
+	res.redirect('/login');
 };
 
 //Go to update profile page
@@ -83,7 +85,7 @@ exports.viewForgotPasswordPage = (req, res, next) => {
 };
 
 exports.viewResetPasswordPage = (req, res, next) => {
-	const {token} = req.params;
+	const { token } = req.params;
 	res.status(200).render('resetPassword', {
 		token,
 	});
