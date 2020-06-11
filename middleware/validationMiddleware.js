@@ -1,6 +1,8 @@
 module.exports = (req, res, next) => {
+	console.log(req.files);
+
 	if (
-		req.files == null ||
+		req.files === null ||
 		req.files === '' ||
 		req.body.title == null ||
 		req.body.title === '' ||
@@ -19,13 +21,16 @@ module.exports = (req, res, next) => {
 
 		const data = req.flash('data')[0];
 
+		console.log(data);
+
 		if (typeof data !== 'undefined') {
 			title = data.title;
 			body = data.body;
 			image = data.image;
 		}
 
-		console.log(title, body, image);
+		console.log(title, body);
+		console.log(image);
 
 		return res.render('create', {
 			msg,

@@ -75,11 +75,18 @@ if (document.querySelector('#password-reset-form')) {
 if (document.querySelector('.purchaseTitle')) {
 	document.querySelectorAll('.purchaseTitle').forEach((el) => {
 		addEventListener('click', (e) => {
-			e.target.textContent = 'Processing...';
-			const { title } = e.target.dataset;
-			purchaseTitle(title);
+			console.log(e.target.nodeName);
+			if (e.target.nodeName === 'BUTTON') {
+				e.target.textContent = 'Processing...';
+				const { title } = e.target.dataset;
+				purchaseTitle(title);
+			} else {
+				console.log(`I won't do that sir.`);
+			}
 		});
 	});
 } else {
 	console.log('bark');
 }
+
+console.log(document.querySelectorAll('.purchaseTitle'));

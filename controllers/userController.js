@@ -18,7 +18,9 @@ exports.loginUser = async (req, res) => {
 	}
 
 	// CHECK IF USER EXISTS AND PASSWORD IS CORRECT
-	const user = await User.findOne({ username }).select('+password'); // NORMAL PASSWORD NOT ALLOWED IN OUTPUT, EXPLICITLY SELECT IT USING '+'.
+	const user = await User.findOne({
+		$or: [{ username: username }, { email: username }],
+	}).select('+password'); // NORMAL PASSWORD NOT ALLOWED IN OUTPUT, EXPLICITLY SELECT IT USING '+'.
 
 	if (!user || !(await user.correctPassword(password, user.password))) {
 		req.flash(msg);

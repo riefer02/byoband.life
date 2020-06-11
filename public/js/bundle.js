@@ -2058,16 +2058,24 @@ if (document.querySelector('#password-reset-form')) {
 if (document.querySelector('.purchaseTitle')) {
   document.querySelectorAll('.purchaseTitle').forEach(el => {
     addEventListener('click', e => {
-      e.target.textContent = 'Processing...';
-      const {
-        title
-      } = e.target.dataset;
-      (0, _stripe.purchaseTitle)(title);
+      console.log(e.target.nodeName);
+
+      if (e.target.nodeName === 'BUTTON') {
+        e.target.textContent = 'Processing...';
+        const {
+          title
+        } = e.target.dataset;
+        (0, _stripe.purchaseTitle)(title);
+      } else {
+        console.log(`I won't do that sir.`);
+      }
     });
   });
 } else {
   console.log('bark');
 }
+
+console.log(document.querySelectorAll('.purchaseTitle'));
 },{"./passwordReset":"passwordReset.js","./increaseRating":"increaseRating.js","./stripe.js":"stripe.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -2096,7 +2104,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54784" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57653" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

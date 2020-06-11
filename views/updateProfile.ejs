@@ -56,7 +56,7 @@
                             <input
                               id="username"
                               name="username"
-                              placeholder="Username"
+                              placeholder="<%=user.username%>"
                               class="form-control here"
                               type="text"
                             />
@@ -68,7 +68,7 @@
                             <input
                               id="email"
                               name="email"
-                              placeholder="Email"
+                              placeholder="<%=user.email%>"
                               class="form-control here"
                               type="email"
                             />
@@ -85,7 +85,7 @@
                               class="form-control"
                               type="text"
                               placeholder="Biography"
-                            ></textarea>
+                            ><%= user.bio %></textarea>
                           </div>
                         </div>
                         <div

@@ -48,8 +48,9 @@ exports.viewCreatePostPage = (req, res, next) => {
 };
 
 //Go to update profile page
-exports.viewUpdateProfilePage = (req, res, next) => {
-	res.status(200).render('updateProfile');
+exports.viewUpdateProfilePage = async (req, res, next) => {
+	const user = await User.findOne({ _id: req.session.userID });
+	res.status(200).render('updateProfile', { user });
 };
 
 //view a users profile page
