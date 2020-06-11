@@ -33,7 +33,10 @@ const likePostTwo = (event) => {
 if (document.querySelector('.event-delegation-1')) {
 	document
 		.querySelector('.event-delegation-1')
-		.addEventListener('click touch', likePost);
+		.addEventListener('touchstart', likePost, false);
+	document
+		.querySelector('.event-delegation-1')
+		.addEventListener('click', likePost, false);
 } else {
 	console.log('kaw');
 }
@@ -42,7 +45,10 @@ if (document.querySelector('.event-delegation-1')) {
 if (document.querySelector('.event-delegation-2')) {
 	document
 		.querySelector('.event-delegation-2')
-		.addEventListener('click touch', likePostTwo);
+		.addEventListener('touchstart', likePostTwo, false);
+	document
+		.querySelector('.event-delegation-2')
+		.addEventListener('click', likePostTwo, false);
 } else {
 	console.log('moo');
 }

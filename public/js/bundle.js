@@ -2025,14 +2025,16 @@ const likePostTwo = event => {
 
 
 if (document.querySelector('.event-delegation-1')) {
-  document.querySelector('.event-delegation-1').addEventListener('click touch', likePost);
+  document.querySelector('.event-delegation-1').addEventListener('touchstart', likePost, false);
+  document.querySelector('.event-delegation-1').addEventListener('click', likePost, false);
 } else {
   console.log('kaw');
 } // INCREASE RATING EVENT HANDLER FOR INDIVIDUAL POST PAGES
 
 
 if (document.querySelector('.event-delegation-2')) {
-  document.querySelector('.event-delegation-2').addEventListener('click touch', likePostTwo);
+  document.querySelector('.event-delegation-2').addEventListener('touchstart', likePostTwo, false);
+  document.querySelector('.event-delegation-2').addEventListener('click', likePostTwo, false);
 } else {
   console.log('moo');
 } // Password Reset EVENT HANDLER
@@ -2094,7 +2096,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54162" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54784" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
