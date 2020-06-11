@@ -48,7 +48,7 @@ if (document.querySelector('.event-delegation-2')) {
 		.addEventListener('click', likePostTwo);
 	document
 		.querySelector('.event-delegation-2')
-		.addEventListener('touchstart', likePost);
+		.addEventListener('touchstart', likePostTwo);
 } else {
 	console.log('moo');
 }
