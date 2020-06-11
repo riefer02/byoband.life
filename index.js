@@ -101,7 +101,7 @@ app.use('*', (req, res, next) => {
 	loggedIn = req.session.userID;
 	next();
 });
-app.use(flash());
+app.use(flash({ locals: 'flash' }));
 
 app.use((req, res, next) => {
 	req.requestTime = new Date().toISOString();

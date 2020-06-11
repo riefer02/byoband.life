@@ -23,18 +23,22 @@ exports.getBlogPostById = async (req, res, next) => {
 };
 
 exports.createBlogPost = (req, res, next) => {
-	const {image} = req.files;
-	image.mv(
-		path.resolve(__dirname, '..', 'public/img', image.name),
-		async (error) => {
-			await BlogPost.create({
-				...req.body,
-				image: '/img/' + image.name,
-				userid: req.session.userID,
-			});
-			res.redirect('/');
-		}
-	);
+	try {
+		const { image } = req.files;
+		image.mv(
+			path.resolve(__dirname, '..', 'public/img', image.name),
+			async (error) => {
+				await BlogPost.create({
+					...req.body,
+					image: '/img/' + image.name,
+					userid: req.session.userID,
+				});
+				res.redirect('/');
+			}
+		);
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 exports.likeBlogPost = async (req, res, next) => {

@@ -41,6 +41,9 @@ exports.viewCreatePostPage = (req, res, next) => {
 			createPost: true,
 		});
 	}
+	if (!req.body === '') {
+		console.log(req.body);
+	}
 	res.redirect('/login');
 };
 

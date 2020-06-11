@@ -6,7 +6,7 @@
 
     <!-- Page Header -->
     <header
-      class="masthead"
+      class="masthead mb-0"
       style="background-image: url('/img/byob-collage-1.jpg');"
     >
       <div class="overlay"></div>
@@ -22,10 +22,28 @@
       </div>
     </header>
 
+    <!-- Alert -->
+
+    <div class="alert alert__row">
+      <div
+        class="col-lg-8 col-md-10 mx-auto font-kalam m-0 d-flex justify-content-center align-items-center"
+      >
+        <div class="alert__message">
+          Posts require a title, body, and image. 😄
+        </div>
+      </div>
+    </div>
     <!-- Main Content -->
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
+          <% if(msg != null || '') { %>
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-danger">
+              <%= msg %>
+            </li>
+          </ul>
+          <% } %>
           <form
             action="/posts/store"
             method="POST"
@@ -40,7 +58,8 @@
                   placeholder="Title"
                   id="title"
                   name="title"
-                />
+                  <% if(typeof title !== "undefined") {%>
+                value="<%= title %>" <% } %> />
                 <p class="help-block text-danger"></p>
               </div>
             </div>
@@ -59,7 +78,11 @@
                     placeholder: `I swear to tell the truth, the whole truth...`,
                     tabsize: 2,
                     height: 200,
+
                   });
+                  if(typeof body !== 'undefined') {
+                 $('textarea').html($('#summernote').code(body));
+                }
                 </script>
                 <p class="help-block text-danger"></p>
               </div>
