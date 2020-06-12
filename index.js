@@ -55,6 +55,15 @@ app.set('view engine', 'ejs');
 // SET SECURITY HTTP HEADERS
 app.use(helmet());
 
+app.use(function (req, res, next) {
+	res.header('Access-Control-Allow-Origin', 'https://www.byoband.life'); // update to match the domain you will make the request from
+	res.header(
+		'Access-Control-Allow-Headers',
+		'Origin, X-Requested-With, Content-Type, Accept'
+	);
+	next();
+});
+
 // LIMIT REQUESTS TO PROJECT AGAINST BRUTE FORCE ATTACK
 const limiter = rateLimit({
 	max: 500,
