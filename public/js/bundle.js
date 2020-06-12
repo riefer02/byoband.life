@@ -2035,16 +2035,20 @@ const likePostTwo = event => {
 
 
 if (document.querySelector('.event-delegation-1')) {
-  document.querySelector('.event-delegation-1').addEventListener('touch', likePost, false);
-  document.querySelector('.event-delegation-1').addEventListener('click', likePost);
+  // document
+  // 	.querySelector('.event-delegation-1')
+  // 	.addEventListener('touch', likePost, false);
+  document.querySelector('.event-delegation-1').addEventListener('click', likePost, false);
 } else {
   console.log('kaw');
 } // INCREASE RATING EVENT HANDLER FOR INDIVIDUAL POST PAGES
 
 
 if (document.querySelector('.event-delegation-2')) {
-  document.querySelector('.event-delegation-2').addEventListener('touch', likePostTwo, false);
-  document.querySelector('.event-delegation-2').addEventListener('click', likePostTwo);
+  // document
+  // 	.querySelector('.event-delegation-2')
+  // 	.addEventListener('touch', likePostTwo, false);
+  document.querySelector('.event-delegation-2').addEventListener('click', likePostTwo, false);
 } else {
   console.log('moo');
 } // Password Reset EVENT HANDLER
@@ -2066,19 +2070,21 @@ if (document.querySelector('#password-reset-form')) {
 
 
 if (document.querySelector('.purchaseTitle')) {
-  document.querySelectorAll('.purchaseTitle').forEach(el => {
-    addEventListener('touch', e => {
-      if (e.target.nodeName === 'BUTTON') {
-        e.target.textContent = 'Processing...';
-        const {
-          title
-        } = e.target.dataset;
-        (0, _stripe.purchaseTitle)(title);
-      } else {
-        console.log(`I won't do that sir.`);
-      }
-    }, false);
-  });
+  // document.querySelectorAll('.purchaseTitle').forEach((el) => {
+  // 	addEventListener(
+  // 		'touch',
+  // 		(e) => {
+  // 			if (e.target.nodeName === 'BUTTON') {
+  // 				e.target.textContent = 'Processing...';
+  // 				const { title } = e.target.dataset;
+  // 				purchaseTitle(title);
+  // 			} else {
+  // 				console.log(`I won't do that sir.`);
+  // 			}
+  // 		},
+  // 		false
+  // 	);
+  // });
   document.querySelectorAll('.purchaseTitle').forEach(el => {
     addEventListener('click', e => {
       console.log(e.target.nodeName);
@@ -2092,7 +2098,7 @@ if (document.querySelector('.purchaseTitle')) {
       } else {
         console.log(`I won't do that sir.`);
       }
-    });
+    }, false);
   });
 } else {
   console.log('bark');
@@ -2127,7 +2133,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54444" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55201" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -31,24 +31,24 @@ const likePostTwo = (event) => {
 
 // Increase Posts Rating EVENT HANDLER for Home Page
 if (document.querySelector('.event-delegation-1')) {
+	// document
+	// 	.querySelector('.event-delegation-1')
+	// 	.addEventListener('touch', likePost, false);
 	document
 		.querySelector('.event-delegation-1')
-		.addEventListener('touch', likePost, false);
-	document
-		.querySelector('.event-delegation-1')
-		.addEventListener('click', likePost);
+		.addEventListener('click', likePost, false);
 } else {
 	console.log('kaw');
 }
 
 // INCREASE RATING EVENT HANDLER FOR INDIVIDUAL POST PAGES
 if (document.querySelector('.event-delegation-2')) {
+	// document
+	// 	.querySelector('.event-delegation-2')
+	// 	.addEventListener('touch', likePostTwo, false);
 	document
 		.querySelector('.event-delegation-2')
-		.addEventListener('touch', likePostTwo, false);
-	document
-		.querySelector('.event-delegation-2')
-		.addEventListener('click', likePostTwo);
+		.addEventListener('click', likePostTwo, false);
 } else {
 	console.log('moo');
 }
@@ -73,10 +73,27 @@ if (document.querySelector('#password-reset-form')) {
 
 // Purchase Title Event Handler
 if (document.querySelector('.purchaseTitle')) {
+	// document.querySelectorAll('.purchaseTitle').forEach((el) => {
+	// 	addEventListener(
+	// 		'touch',
+	// 		(e) => {
+	// 			if (e.target.nodeName === 'BUTTON') {
+	// 				e.target.textContent = 'Processing...';
+	// 				const { title } = e.target.dataset;
+	// 				purchaseTitle(title);
+	// 			} else {
+	// 				console.log(`I won't do that sir.`);
+	// 			}
+	// 		},
+	// 		false
+	// 	);
+	// });
+
 	document.querySelectorAll('.purchaseTitle').forEach((el) => {
 		addEventListener(
-			'touch',
+			'click',
 			(e) => {
+				console.log(e.target.nodeName);
 				if (e.target.nodeName === 'BUTTON') {
 					e.target.textContent = 'Processing...';
 					const { title } = e.target.dataset;
@@ -87,19 +104,6 @@ if (document.querySelector('.purchaseTitle')) {
 			},
 			false
 		);
-	});
-
-	document.querySelectorAll('.purchaseTitle').forEach((el) => {
-		addEventListener('click', (e) => {
-			console.log(e.target.nodeName);
-			if (e.target.nodeName === 'BUTTON') {
-				e.target.textContent = 'Processing...';
-				const { title } = e.target.dataset;
-				purchaseTitle(title);
-			} else {
-				console.log(`I won't do that sir.`);
-			}
-		});
 	});
 } else {
 	console.log('bark');
