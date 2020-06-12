@@ -33,10 +33,10 @@ const likePostTwo = (event) => {
 if (document.querySelector('.event-delegation-1')) {
 	document
 		.querySelector('.event-delegation-1')
-		.addEventListener('touchstart', likePost, false);
+		.addEventListener('touch', likePost, false);
 	document
 		.querySelector('.event-delegation-1')
-		.addEventListener('click', likePost, false);
+		.addEventListener('click', likePost);
 } else {
 	console.log('kaw');
 }
@@ -45,10 +45,10 @@ if (document.querySelector('.event-delegation-1')) {
 if (document.querySelector('.event-delegation-2')) {
 	document
 		.querySelector('.event-delegation-2')
-		.addEventListener('touchstart', likePostTwo, false);
+		.addEventListener('touch', likePostTwo, false);
 	document
 		.querySelector('.event-delegation-2')
-		.addEventListener('click', likePostTwo, false);
+		.addEventListener('click', likePostTwo);
 } else {
 	console.log('moo');
 }
@@ -71,8 +71,24 @@ if (document.querySelector('#password-reset-form')) {
 	console.log('meow');
 }
 
-// Purchase Title Event Handler Prototype
+// Purchase Title Event Handler
 if (document.querySelector('.purchaseTitle')) {
+	document.querySelectorAll('.purchaseTitle').forEach((el) => {
+		addEventListener(
+			'touch',
+			(e) => {
+				if (e.target.nodeName === 'BUTTON') {
+					e.target.textContent = 'Processing...';
+					const { title } = e.target.dataset;
+					purchaseTitle(title);
+				} else {
+					console.log(`I won't do that sir.`);
+				}
+			},
+			false
+		);
+	});
+
 	document.querySelectorAll('.purchaseTitle').forEach((el) => {
 		addEventListener('click', (e) => {
 			console.log(e.target.nodeName);
