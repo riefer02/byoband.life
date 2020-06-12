@@ -31,12 +31,15 @@ const likePostTwo = (event) => {
 
 // Increase Posts Rating EVENT HANDLER for Home Page
 if (document.querySelector('.event-delegation-1')) {
+	const eventLocation = document.querySelector('.event-delegation-1');
 	// document
 	// 	.querySelector('.event-delegation-1')
 	// 	.addEventListener('touch', likePost, false);
-	document
-		.querySelector('.event-delegation-1')
-		.addEventListener('click', likePost, false);
+	// document
+	// 	.querySelector('.event-delegation-1')
+	// 	.addEventListener('click', likePost, false);
+
+	$(eventLocation).on('click touch', likePost);
 } else {
 	console.log('kaw');
 }
