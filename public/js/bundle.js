@@ -1941,6 +1941,10 @@ const increaseRating = async postID => {
       url: `${url}/posts/like-post/${postID}`,
       data: {
         postID
+      },
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin': '*'
       }
     }).then(res => {
       console.log('successfully updated rating');
@@ -1976,7 +1980,13 @@ const purchaseTitle = async title => {
   try {
     // 1) GET SESSION FROM SERVER
     const url = window.location.origin;
-    const session = await (0, _axios.default)(`${url}/store/checkout-session/${title}`); // 2) CREATE CHECKOUT FORM + CHARGE CREDIT CARD
+    const session = await (0, _axios.default)(`${url}/store/checkout-session/${title}`, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+    console.log(session); // 2) CREATE CHECKOUT FORM + CHARGE CREDIT CARD
 
     await stripe.redirectToCheckout({
       sessionId: session.data.session.id
@@ -2117,7 +2127,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51605" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54444" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

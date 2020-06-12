@@ -9,6 +9,10 @@ export const increaseRating = async (postID) => {
 			data: {
 				postID,
 			},
+			headers: {
+				'Content-Type': 'application/json;charset=UTF-8',
+				'Access-Control-Allow-Origin': '*',
+			},
 		}).then((res) => {
 			console.log('successfully updated rating');
 			if (res.data.redirect === '/') {
