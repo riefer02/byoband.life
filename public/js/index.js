@@ -13,7 +13,9 @@ const increaseValue = (postID) => {
 
 const likePost = (event) => {
 	// EVENT DELEGATION
+	console.log(event);
 	let postID = event.target.parentNode.parentNode.parentNode.id;
+	console.log(postID);
 	if (postID) {
 		increaseValue(postID);
 		// SENDS TO EXPRESS ROUTE TO UPDATE RATING IN DATABASE
@@ -22,33 +24,36 @@ const likePost = (event) => {
 };
 
 const likePostTwo = (event) => {
-	let postID = event.target.parentNode.id;
+	console.log(event);
+	let postID = event.target.parentNode.parentNode.id;
+	console.log(postID);
 	if (postID) {
 		increaseValue(postID);
 		increaseRating(postID);
 	}
 };
 
+document.addEventListener('touchstart', (event) => {
+	console.log(event);
+});
+
 // Increase Posts Rating EVENT HANDLER for Home Page
 if (document.querySelector('.event-delegation-1')) {
-	const eventLocation = document.querySelector('.event-delegation-1');
-	// document
-	// 	.querySelector('.event-delegation-1')
-	// 	.addEventListener('touch', likePost, false);
-	// document
-	// 	.querySelector('.event-delegation-1')
-	// 	.addEventListener('click', likePost, false);
-
-	$(eventLocation).on('click touch', likePost);
+	document
+		.querySelector('.event-delegation-1')
+		.addEventListener('touch', likePost, false);
+	document
+		.querySelector('.event-delegation-1')
+		.addEventListener('click', likePost, false);
 } else {
 	console.log('kaw');
 }
 
 // INCREASE RATING EVENT HANDLER FOR INDIVIDUAL POST PAGES
 if (document.querySelector('.event-delegation-2')) {
-	// document
-	// 	.querySelector('.event-delegation-2')
-	// 	.addEventListener('touch', likePostTwo, false);
+	document
+		.querySelector('.event-delegation-2')
+		.addEventListener('touch', likePostTwo, false);
 	document
 		.querySelector('.event-delegation-2')
 		.addEventListener('click', likePostTwo, false);
@@ -111,5 +116,3 @@ if (document.querySelector('.purchaseTitle')) {
 } else {
 	console.log('bark');
 }
-
-console.log(document.querySelectorAll('.purchaseTitle'));

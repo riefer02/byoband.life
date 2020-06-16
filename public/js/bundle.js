@@ -2015,7 +2015,9 @@ const increaseValue = postID => {
 
 const likePost = event => {
   // EVENT DELEGATION
+  console.log(event);
   let postID = event.target.parentNode.parentNode.parentNode.id;
+  console.log(postID);
 
   if (postID) {
     increaseValue(postID); // SENDS TO EXPRESS ROUTE TO UPDATE RATING IN DATABASE
@@ -2025,33 +2027,30 @@ const likePost = event => {
 };
 
 const likePostTwo = event => {
-  let postID = event.target.parentNode.id;
+  console.log(event);
+  let postID = event.target.parentNode.parentNode.id;
+  console.log(postID);
 
   if (postID) {
     increaseValue(postID);
     (0, _increaseRating.increaseRating)(postID);
   }
-}; // Increase Posts Rating EVENT HANDLER for Home Page
+};
 
+document.addEventListener('touchstart', event => {
+  console.log(event);
+}); // Increase Posts Rating EVENT HANDLER for Home Page
 
 if (document.querySelector('.event-delegation-1')) {
-  const eventLocation = document.querySelector('.event-delegation-1'); // document
-  // 	.querySelector('.event-delegation-1')
-  // 	.addEventListener('touch', likePost, false);
-  // document
-  // 	.querySelector('.event-delegation-1')
-  // 	.addEventListener('click', likePost, false);
-
-  $(eventLocation).on('click touch', likePost);
+  document.querySelector('.event-delegation-1').addEventListener('touch', likePost, false);
+  document.querySelector('.event-delegation-1').addEventListener('click', likePost, false);
 } else {
   console.log('kaw');
 } // INCREASE RATING EVENT HANDLER FOR INDIVIDUAL POST PAGES
 
 
 if (document.querySelector('.event-delegation-2')) {
-  // document
-  // 	.querySelector('.event-delegation-2')
-  // 	.addEventListener('touch', likePostTwo, false);
+  document.querySelector('.event-delegation-2').addEventListener('touch', likePostTwo, false);
   document.querySelector('.event-delegation-2').addEventListener('click', likePostTwo, false);
 } else {
   console.log('moo');
@@ -2107,8 +2106,6 @@ if (document.querySelector('.purchaseTitle')) {
 } else {
   console.log('bark');
 }
-
-console.log(document.querySelectorAll('.purchaseTitle'));
 },{"./passwordReset":"passwordReset.js","./increaseRating":"increaseRating.js","./stripe.js":"stripe.js"}],"../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -2137,7 +2134,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55827" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52097" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
