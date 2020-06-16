@@ -2015,11 +2015,12 @@ const increaseValue = postID => {
 
 const likePost = event => {
   // EVENT DELEGATION
-  console.log(event);
+  console.log(event.type);
   let postID = event.target.parentNode.parentNode.parentNode.id;
   console.log(postID);
 
   if (postID) {
+    event.preventDefault();
     increaseValue(postID); // SENDS TO EXPRESS ROUTE TO UPDATE RATING IN DATABASE
 
     (0, _increaseRating.increaseRating)(postID);
@@ -2027,19 +2028,17 @@ const likePost = event => {
 };
 
 const likePostTwo = event => {
-  console.log(event);
+  console.log(event.type);
   let postID = event.target.parentNode.parentNode.id;
   console.log(postID);
 
   if (postID) {
+    event.preventDefault();
     increaseValue(postID);
     (0, _increaseRating.increaseRating)(postID);
   }
-};
+}; // Increase Posts Rating EVENT HANDLER for Home Page
 
-document.addEventListener('touchstart', event => {
-  console.log(event);
-}); // Increase Posts Rating EVENT HANDLER for Home Page
 
 if (document.querySelector('.event-delegation-1')) {
   document.querySelector('.event-delegation-1').addEventListener('touch', likePost, false);
@@ -2134,7 +2133,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52097" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53919" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

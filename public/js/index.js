@@ -13,10 +13,11 @@ const increaseValue = (postID) => {
 
 const likePost = (event) => {
 	// EVENT DELEGATION
-	console.log(event);
+	console.log(event.type);
 	let postID = event.target.parentNode.parentNode.parentNode.id;
 	console.log(postID);
 	if (postID) {
+		event.preventDefault();
 		increaseValue(postID);
 		// SENDS TO EXPRESS ROUTE TO UPDATE RATING IN DATABASE
 		increaseRating(postID);
@@ -24,18 +25,15 @@ const likePost = (event) => {
 };
 
 const likePostTwo = (event) => {
-	console.log(event);
+	console.log(event.type);
 	let postID = event.target.parentNode.parentNode.id;
 	console.log(postID);
 	if (postID) {
+		event.preventDefault();
 		increaseValue(postID);
 		increaseRating(postID);
 	}
 };
-
-document.addEventListener('touchstart', (event) => {
-	console.log(event);
-});
 
 // Increase Posts Rating EVENT HANDLER for Home Page
 if (document.querySelector('.event-delegation-1')) {
