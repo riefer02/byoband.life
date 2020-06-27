@@ -1,4 +1,5 @@
 const path = require('path');
+const fileUpload = require('express-fileupload');
 const BlogPost = require('../models/BlogPost.js');
 
 //Returns JSON of Blogs from DB
