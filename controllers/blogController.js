@@ -1,6 +1,10 @@
 const path = require('path');
+const multer = require('multer');
+
 const fileUpload = require('express-fileupload');
 const BlogPost = require('../models/BlogPost.js');
+
+const upload = multer({ dest: 'public/img' });
 
 //Returns JSON of Blogs from DB
 exports.getBlogPosts = async (req, res, next) => {

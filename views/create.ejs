@@ -52,13 +52,8 @@
             <div class="control-group">
               <div class="form-group floating-label-form-group controls">
                 <label>Title</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Title"
-                  id="title"
-                  name="title"
-                  <% if(typeof title !== "undefined") {%>
+                <input type="text" class="form-control" placeholder="Title"
+                id="title" name="title" <% if(typeof title !== "undefined") {%>
                 value="<%= title %>" <% } %> />
                 <p class="help-block text-danger"></p>
               </div>
@@ -78,15 +73,40 @@
                     placeholder: `I swear to tell the truth, the whole truth...`,
                     tabsize: 2,
                     height: 200,
-
+                    toolbar: [
+                      ['style', ['style']],
+                      [
+                        'font',
+                        [
+                          'bold',
+                          'italic',
+                          'underline',
+                          'strikethrough',
+                          'superscript',
+                          'subscript',
+                          'clear',
+                        ],
+                      ],
+                      ['fontname', ['fontname']],
+                      ['fontsize', ['fontsize']],
+                      ['color', ['color']],
+                      ['para', ['ol', 'ul', 'paragraph', 'height']],
+                      ['table', ['table']],
+                      ['insert', ['link']],
+                      [
+                        'view',
+                        ['undo', 'redo', 'fullscreen', 'codeview', 'help'],
+                      ],
+                    ],
                   });
-                  if(typeof body !== 'undefined') {
-                 $('textarea').html($('#summernote').code(body));
-                }
+                  if (typeof body !== 'undefined') {
+                    $('textarea').html($('#summernote').code(body));
+                  }
                 </script>
                 <p class="help-block text-danger"></p>
               </div>
             </div>
+            <h2 class="font-kalam">Attach Image Here</h2>
             <div class="control-group">
               <div class="form-group floating-label-form-group control">
                 <label>Image</label>
