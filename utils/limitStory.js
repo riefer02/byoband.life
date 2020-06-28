@@ -10,5 +10,5 @@ module.exports = limitStory = (story, limit = 200) => {
 
 		return `${limitedStory.join(' ')}...`;
 	}
-	return limitedStory;
+	return story;
 };
