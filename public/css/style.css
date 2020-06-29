@@ -143,12 +143,15 @@ p.post-meta {
 }
 
 /*RATING SYSTEM*/
+path {
+	cursor: pointer;
+}
+
 .rating-system {
 	background-color: rgba(229, 229, 229, 0.84);
 	border-radius: 20px;
 	padding: 0.25rem 0.5rem;
 	margin-top: 2px;
-	cursor: pointer;
 }
 
 .bi.bi-star-fill {

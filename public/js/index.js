@@ -13,7 +13,8 @@ const increaseValue = (postID) => {
 
 const likePost = (event) => {
 	// EVENT DELEGATION
-	console.log(event.type);
+	console.log('clicked');
+	console.log(event.target);
 	let postID = event.target.parentNode.parentNode.parentNode.id;
 	console.log(postID);
 	if (postID) {
@@ -37,11 +38,11 @@ const likePostTwo = (event) => {
 
 // Increase Posts Rating EVENT HANDLER for Home Page
 if (document.querySelector('.event-delegation-1')) {
+	// document
+	// 	.querySelector('.event-delegation-1 path')
+	// 	.addEventListener('touch', likePost, false);
 	document
-		.querySelector('.event-delegation-1')
-		.addEventListener('touch', likePost, false);
-	document
-		.querySelector('.event-delegation-1')
+		.querySelector('.event-delegation-1 path')
 		.addEventListener('click', likePost, false);
 } else {
 	console.log('kaw');
