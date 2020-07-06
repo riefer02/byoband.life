@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 module.exports = (req, res, next) => {
 	console.log(req.files);
 
@@ -42,3 +43,11 @@ module.exports = (req, res, next) => {
 	}
 	next();
 };
+=======
+module.exports = (req, res, next) => {
+	if (req.files == null || req.body.title == null || req.body.title == null) {
+		return res.redirect('/posts/new');
+	}
+	next();
+};
+>>>>>>> 92a817e5f5772e1ef69b4615401b9b0c9a37138c

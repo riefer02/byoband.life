@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 h1 {
 	font-family: 'Domine', serif;
 }
@@ -288,3 +289,17 @@ header.masthead.masthead-custom {
 		margin-right: 0px;
 	}
 }
+=======
+h1 {
+	font-family: 'Domine', serif;
+}
+
+.font-kalam {
+	font-family: 'Kalam', cursive !important;
+}
+
+.container .navbar-brand {
+	letter-spacing: 1px;
+	font-weight: 300;
+}
+>>>>>>> 92a817e5f5772e1ef69b4615401b9b0c9a37138c

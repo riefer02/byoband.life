@@ -1,21 +1,30 @@
 {
   "name": "blog-1",
+<<<<<<< HEAD
   "browserslist": [
     "last 1 Chrome versions"
   ],
+=======
+>>>>>>> 92a817e5f5772e1ef69b4615401b9b0c9a37138c
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "start": "node index.js",
     "dev": "nodemon index.js",
     "debug": "ndb index.js",
     "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
     "build:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
+=======
+    "start": "nodemon index.js",
+    "debug": "ndb index.js"
+>>>>>>> 92a817e5f5772e1ef69b4615401b9b0c9a37138c
   },
   "author": "andrew riefenstahl",
   "license": "ISC",
   "engines": {
+<<<<<<< HEAD
     "node": "13.5.x"
   },
   "dependencies": {
@@ -56,5 +65,21 @@
     "mv": "^2.1.1",
     "parcel-bundler": "^1.12.4",
     "prettier": "^2.0.5"
+=======
+    "node": "13.5.0"
+  },
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "ejs": "^3.1.2",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.7-alpha.3",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.9.11",
+    "mongoose-unique-validator": "^2.0.3",
+    "prettier": "^2.0.5",
+    "validator": "^13.0.0"
+>>>>>>> 92a817e5f5772e1ef69b4615401b9b0c9a37138c
   }
 }
