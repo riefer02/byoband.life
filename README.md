@@ -1,2 +1,3 @@
-# byob-blog-1
-A blog build with express, mongoDB, bootstrap, and Node.js
+# byoband.life
+
+Node, Express, MongoDB Community Blog
