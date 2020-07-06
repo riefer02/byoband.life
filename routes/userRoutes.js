@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const express = require('express');
 const router = express.Router(); //Middleware, Sub-Application
 
@@ -22,16 +21,3 @@ router.get('/profile/:username', userController.viewOtherUserProfile);
 router.delete('/delete-user', userController.deleteUser);
 
 module.exports = router;
-=======
-const express = require('express');
-const router = express.Router(); //Middleware, Sub-Application
-
-const userController = require('./../controllers/userController');
-
-//Data Management Routes
-router.post('/register', userController.storeUser);
-router.post('/login', userController.loginUser);
-router.get('/logout', userController.logoutUser);
-
-module.exports = router;
->>>>>>> 92a817e5f5772e1ef69b4615401b9b0c9a37138c

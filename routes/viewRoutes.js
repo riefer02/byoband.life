@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const express = require('express');
 
 const router = express.Router(); //Middleware, Sub-Application
@@ -41,19 +40,3 @@ router.get('/forgot-password', viewController.viewForgotPasswordPage);
 router.get('/reset-password/:token', viewController.viewResetPasswordPage);
 
 module.exports = router;
-=======
-const express = require('express');
-const router = express.Router(); //Middleware, Sub-Application
-
-const viewController = require('./../controllers/viewController');
-
-//Page Routes
-router.get('/', viewController.viewHomePage);
-router.get('/update', viewController.viewUpdateProfilePage);
-router.get('/profile', viewController.viewUserProfile);
-router.get('/register', viewController.viewRegisterPage);
-router.get('/login', viewController.viewLoginPage);
-router.get('/new', viewController.viewCreatePostPage);
-
-module.exports = router;
->>>>>>> 92a817e5f5772e1ef69b4615401b9b0c9a37138c
