@@ -12,6 +12,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const cors = require('cors');
 
 const blogRouter = require('./routes/blogRoutes.js');
 const userRouter = require('./routes/userRoutes.js');
@@ -90,6 +91,8 @@ app.use(mongoSanitize());
 
 // DATA SANITIZATION AGAINST XSS
 app.use(xss());
+
+app.use(cors());
 
 // PREVENT PARAMETER POLLUTION
 app.use(
